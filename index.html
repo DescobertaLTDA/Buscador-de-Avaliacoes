@@ -36,23 +36,8 @@ body{background:var(--bg);color:var(--ink);font-family:var(--outfit);min-height:
 .hero h1{font-size:clamp(30px,4vw,50px);font-weight:200;line-height:1.08;letter-spacing:-1.5px;color:var(--ink);margin-bottom:8px}
 .hero h1 strong{font-weight:400;color:var(--green)}
 .hero-sub{font-size:14px;color:var(--ink2);font-weight:300;max-width:500px;line-height:1.65;margin-bottom:28px}
-.hero-stats-row{display:flex;gap:0;border:0.5px solid var(--border2);border-radius:12px;overflow:hidden;margin-bottom:36px;width:fit-content}
-.hst{padding:14px 22px;border-right:0.5px solid var(--border);display:flex;flex-direction:column;gap:3px}
-.hst:last-child{border-right:none}
-.hst-n{font-size:20px;font-weight:200;color:var(--ink);letter-spacing:-.5px}
-.hst-l{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.06em}
 
 /* INPUT SECTION */
-.proof-strip{border:0.5px solid var(--border);border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015));padding:28px;margin-bottom:18px}
-.proof-logos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
-.proof-card{border:0.5px solid var(--border);border-radius:8px;background:rgba(255,255,255,0.025);padding:15px 16px;display:flex;align-items:center;justify-content:space-between;min-height:68px}
-.proof-brand{display:flex;align-items:center;gap:10px;min-width:0}
-.proof-mark{width:28px;height:28px;border-radius:8px;border:0.5px solid rgba(62,207,142,.35);background:var(--green-bg);display:flex;align-items:center;justify-content:center;color:var(--green);font-family:var(--mono);font-size:11px}
-.proof-name{font-size:15px;font-weight:400;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.proof-meta{font-family:var(--mono);font-size:9px;color:var(--ink3);margin-top:3px;letter-spacing:.05em}
-.proof-score{font-family:var(--mono);font-size:12px;color:var(--green)}
-.proof-line{text-align:center;font-size:14px;color:var(--ink2);font-weight:300}
-@media(max-width:760px){.proof-logos{grid-template-columns:1fr}.proof-strip{padding:18px}}
 .input-section{background:var(--card);border:0.5px solid var(--border2);border-radius:16px;padding:26px;margin-bottom:0}
 .input-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
 .section-title{font-size:13px;font-weight:400;color:var(--ink)}
@@ -61,18 +46,18 @@ body{background:var(--bg);color:var(--ink);font-family:var(--outfit);min-height:
 .qty-wrap select{background:var(--bg3);border:0.5px solid var(--border2);color:var(--ink2);padding:6px 10px;border-radius:8px;font-family:var(--mono);font-size:11px;cursor:pointer;outline:none}
 
 /* Slots */
-.apps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
-@media(max-width:860px){.apps-grid{grid-template-columns:repeat(2,1fr)}}
+.apps-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:16px}
+@media(max-width:860px){.apps-grid{grid-template-columns:1fr}}
 @media(max-width:480px){.apps-grid{grid-template-columns:1fr}}
 
-.app-slot{background:var(--bg3);border:0.5px solid var(--border);border-radius:8px;padding:11px 13px;position:relative;transition:border-color .2s}
+.app-slot{background:var(--bg3);border:0.5px solid var(--border);border-radius:8px;padding:17px 18px;position:relative;transition:border-color .2s}
 .app-slot:focus-within{border-color:rgba(62,207,142,.5)}
 .app-slot.done{border-color:rgba(62,207,142,.35)}
 .app-slot.err{border-color:rgba(248,113,113,.35)}
 .slot-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
 .slot-num{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.1em}
 .slot-dot{width:7px;height:7px;border-radius:50%}
-.slot-input{width:100%;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:10px;color:var(--ink);line-height:1.4}
+.slot-input{width:100%;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:13px;color:var(--ink);line-height:1.4}
 .slot-input::placeholder{color:var(--ink3)}
 .slot-badge{font-family:var(--mono);font-size:9px;margin-top:6px;display:none}
 .slot-badge.show{display:block}
@@ -247,72 +232,15 @@ body{background:var(--bg);color:var(--ink);font-family:var(--outfit);min-height:
   <h1>Descubra o que clientes<br><strong>dizem antes de construir</strong></h1>
   <p class="hero-sub">Paggio transforma avaliacoes da Google Play em sinais de produto: dores, elogios, notas, temas recorrentes e oportunidades de mercado.</p>
 
-  <div class="hero-stats-row">
-    <div class="hst"><div class="hst-n">8</div><div class="hst-l">APPS SIMULTÂNEOS</div></div>
-    <div class="hst"><div class="hst-n">500</div><div class="hst-l">REVIEWS / APP</div></div>
-    <div class="hst"><div class="hst-n">CSV</div><div class="hst-l">EXPORT COMPLETO</div></div>
-    <div class="hst"><div class="hst-n">100%</div><div class="hst-l">GRATUITO</div></div>
-  </div>
-
-  <div class="proof-strip">
-    <div class="proof-logos">
-      <div class="proof-card">
-        <div class="proof-brand">
-          <div class="proof-mark">IF</div>
-          <div>
-            <div class="proof-name">iFood</div>
-            <div class="proof-meta">300 reviews analisadas</div>
-          </div>
-        </div>
-        <div class="proof-score">79% pos</div>
-      </div>
-      <div class="proof-card">
-        <div class="proof-brand">
-          <div class="proof-mark">UB</div>
-          <div>
-            <div class="proof-name">Uber</div>
-            <div class="proof-meta">temas e dores extraidos</div>
-          </div>
-        </div>
-        <div class="proof-score">70% pos</div>
-      </div>
-      <div class="proof-card">
-        <div class="proof-brand">
-          <div class="proof-mark">NX</div>
-          <div>
-            <div class="proof-name">Netflix</div>
-            <div class="proof-meta">monetizacao estimada</div>
-          </div>
-        </div>
-        <div class="proof-score">63% pos</div>
-      </div>
-    </div>
-    <div class="proof-line">Exemplos analisados automaticamente para mostrar o que o Paggio consegue revelar.</div>
-  </div>
-
   <div class="input-section">
     <div class="input-header">
       <div>
-        <div class="section-title">Apps para analisar</div>
-        <div class="section-hint">Cole uma ou mais URLs da Google Play para gerar uma analise nova.</div>
-      </div>
-      <div class="qty-wrap">
-        Reviews por app:
-        <select id="qty-select">
-          <option value="100">100</option>
-          <option value="200">200</option>
-          <option value="300" selected>300</option>
-          <option value="500">500 max</option>
-        </select>
+        <div class="section-title">Cole o link do app</div>
+        <div class="section-hint">Use uma URL da Google Play para gerar a analise.</div>
       </div>
     </div>
 
     <div class="apps-grid" id="apps-grid"></div>
-
-    <div class="slot-controls">
-      <button class="btn-ghost" onclick="addSlot()">+ Adicionar app</button>
-      <button class="btn-ghost" onclick="removeSlot()">− Remover último</button>
-    </div>
 
     <div class="action-bar">
       <button class="btn-primary" id="btn-analisar" onclick="analisarTodos()">
@@ -374,60 +302,6 @@ body{background:var(--bg);color:var(--ink);font-family:var(--outfit);min-height:
 const API = '/api/analisar';
 const COLORS = ['#3ecf8e','#a7f3d0','#facc15','#f87171','#38bdf8','#c084fc','#f472b6','#94a3b8'];
 
-const DEMO_URLS = [
-  'https://play.google.com/store/apps/details?id=br.com.brainweb.ifood&hl=pt_BR',
-  'https://play.google.com/store/apps/details?id=com.ubercab&hl=pt_BR',
-  'https://play.google.com/store/apps/details?id=com.netflix.mediaclient&hl=pt_BR',
-];
-
-const DEMO_APPS = [
-  {
-    nome:'iFood', app_id:'br.com.brainweb.ifood', score_geral:4.7, instalacoes:'100 mi+', developer:'iFood Delivery de Comida e Mercado', categoria:'Comer e beber', preco_app:'Gratis', in_app:'', tem_inapp:false, total:300, media:4.42, colorIdx:0, url:DEMO_URLS[0],
-    sentimentos:{positivo:238, neutro:25, negativo:37}, dist_notas:{'5':214,'4':24,'3':25,'2':12,'1':25},
-    temas_neg:{'bug / erro':15,'preco / plano':9,'cartao / parcelas':7,'interface / UX':6},
-    temas_pos:{'interface / UX':82,'geral':65,'notif / importacao':18,'relatorios':8},
-    receita_detalhes:{modelo:'gratuito', nota:'Exemplo de demonstracao: Paggio usa reviews reais quando voce clica em Analisar apps.'},
-    top_reviews:[
-      {usuario:'Cliente recorrente', data:'12/04/2026', score:5, curtidas:42, texto:'Entrega rapida e variedade boa. Uso para comparar restaurantes e resolver compras de ultima hora.'},
-      {usuario:'Usuario premium', data:'08/04/2026', score:4, curtidas:18, texto:'O app melhorou bastante, mas ainda sinto falta de filtros mais claros por taxa de entrega.'}
-    ],
-    recentes_neg:[
-      {data:'17/04/2026', score:2, curtidas:9, texto:'Quando o pagamento falha, a mensagem nao explica bem o motivo.'},
-      {data:'15/04/2026', score:1, curtidas:6, texto:'Travou no acompanhamento do pedido e precisei fechar o app.'}
-    ]
-  },
-  {
-    nome:'Uber', app_id:'com.ubercab', score_geral:4.5, instalacoes:'500 mi+', developer:'Uber Technologies, Inc.', categoria:'Mapas e navegacao', preco_app:'Gratis', in_app:'', tem_inapp:false, total:300, media:4.18, colorIdx:1, url:DEMO_URLS[1],
-    sentimentos:{positivo:211, neutro:34, negativo:55}, dist_notas:{'5':185,'4':26,'3':34,'2':18,'1':37},
-    temas_neg:{'preco / plano':22,'bug / erro':14,'sincronizacao':8,'interface / UX':6},
-    temas_pos:{'interface / UX':64,'geral':59,'relatorios':12},
-    receita_detalhes:{modelo:'gratuito', nota:'Exemplo de demonstracao: substitua os links e gere uma analise nova.'},
-    top_reviews:[
-      {usuario:'Passageiro diario', data:'10/04/2026', score:5, curtidas:35, texto:'Facil de chamar, acompanhar rota e pagar sem burocracia.'},
-      {usuario:'Motorista parceiro', data:'04/04/2026', score:4, curtidas:21, texto:'Funciona bem na maior parte do tempo. O suporte poderia ser mais direto.'}
-    ],
-    recentes_neg:[
-      {data:'16/04/2026', score:2, curtidas:11, texto:'Preco variando muito em horarios normais.'},
-      {data:'14/04/2026', score:1, curtidas:7, texto:'O mapa demorou para atualizar e o motorista apareceu no lugar errado.'}
-    ]
-  },
-  {
-    nome:'Netflix', app_id:'com.netflix.mediaclient', score_geral:4.2, instalacoes:'1 bi+', developer:'Netflix, Inc.', categoria:'Entretenimento', preco_app:'Gratis', in_app:'R$ 20,90 - R$ 59,90', tem_inapp:true, total:300, media:3.96, colorIdx:2, url:DEMO_URLS[2],
-    sentimentos:{positivo:188, neutro:41, negativo:71}, dist_notas:{'5':160,'4':28,'3':41,'2':24,'1':47},
-    temas_neg:{'preco / plano':28,'bug / erro':16,'interface / UX':11,'sincronizacao':7},
-    temas_pos:{'geral':72,'interface / UX':44,'relatorios':15},
-    receita_detalhes:{modelo:'freemium (in-app)', faixa_inapp:'R$ 20,90 - R$ 59,90', ticket_medio_est:'R$ 40,40', taxa_conversao:'~3%', instalacoes_mes_est:41666666, receita_mensal_est:'R$ 35.350.000', nota:'Estimativa demonstrativa para mostrar o modulo de monetizacao.'},
-    top_reviews:[
-      {usuario:'Maratonista', data:'11/04/2026', score:5, curtidas:30, texto:'Catalogo grande e reproducao estavel na TV e no celular.'},
-      {usuario:'Familia conectada', data:'07/04/2026', score:4, curtidas:13, texto:'Perfis ajudam bastante, mas a busca poderia entender melhor nomes parecidos.'}
-    ],
-    recentes_neg:[
-      {data:'18/04/2026', score:2, curtidas:15, texto:'O preco pesa e alguns titulos somem rapido.'},
-      {data:'13/04/2026', score:1, curtidas:8, texto:'Depois da atualizacao, alguns episodios ficaram carregando sem abrir.'}
-    ]
-  }
-];
-
 let slots = [];
 let appData = [];
 let chartInst = null;
@@ -438,18 +312,13 @@ function renderSlots() {
   const g = document.getElementById('apps-grid');
   g.innerHTML = '';
   slots.forEach((s,i) => {
-    const c = COLORS[i % COLORS.length];
     const statusClass = s.status === 'loading' ? 'loading' : s.status === 'done' ? 'done' : s.status === 'error' ? 'err' : '';
-    const statusTxt = s.status === 'loading' ? 'analisando...' : s.status === 'done' ? '✓ carregado' : s.status === 'error' ? '✗ erro' : '';
+    const statusTxt = s.status === 'loading' ? 'analisando...' : s.status === 'done' ? 'analise carregada' : s.status === 'error' ? 'erro ao analisar' : '';
     const slotClass = s.status === 'done' ? 'done' : s.status === 'error' ? 'err' : '';
     const d = document.createElement('div');
     d.className = `app-slot ${slotClass}`;
     d.innerHTML = `
-      <div class="slot-top">
-        <span class="slot-num">APP ${i+1}</span>
-        <span class="slot-dot" style="background:${c}"></span>
-      </div>
-      <input class="slot-input" placeholder="https://play.google.com/store/apps/..." value="${s.url}"
+      <input class="slot-input" placeholder="https://play.google.com/store/apps/details?id=..." value="${s.url}"
         oninput="slots[${i}].url=this.value">
       <div class="slot-badge ${statusClass} ${statusTxt?'show':''}">${statusTxt}</div>`;
     g.appendChild(d);
@@ -461,9 +330,6 @@ function removeSlot() { if(slots.length<=1) return; slots.pop(); renderSlots(); 
 
 slots.push({url:'', status:'idle'});
 renderSlots();
-appData = DEMO_APPS.map(d => ({...d}));
-document.getElementById('btn-csv').disabled = false;
-renderResults(false);
 
 /* ── Analyze ── */
 async function analisarTodos() {
@@ -476,7 +342,7 @@ async function analisarTodos() {
   document.getElementById('progress-wrap').style.display = 'block';
 
   appData = [];
-  const qty = document.getElementById('qty-select').value;
+  const qty = 300;
   const activeSlots = slots.map((s,i)=>({url:s.url.trim(),i})).filter(s=>s.url);
 
   activeSlots.forEach(({i}) => { slots[i].status = 'loading'; });
@@ -755,7 +621,7 @@ function pct(a,t){return t>0?Math.round((a/t)*100):0;}
 function starStr(n,sz=11){const f=Math.round(n),e=5-f;return`<span style="color:var(--amber);font-size:${sz}px">${'★'.repeat(f)}</span><span style="color:var(--border2);font-size:${sz}px">${'☆'.repeat(e)}</span>`;}
 function rCard(r){return`<div class="rcard"><div class="rtop"><span>${starStr(r.score,11)}</span>${r.usuario?`<span class="ruser">${r.usuario}</span>`:''}<span class="rdate">${r.data||''}</span>${r.curtidas?`<span class="rlikes">👍 ${r.curtidas}</span>`:''}</div><div class="rtext">${r.texto||''}</div></div>`;}
 function showError(msg){const e=document.getElementById('error-banner');e.textContent=msg;e.style.display='block';}
-function limpar(){slots=[{url:'',status:'idle'}];appData=DEMO_APPS.map(d=>({...d}));renderSlots();document.getElementById('results').style.display='block';document.getElementById('error-banner').style.display='none';document.getElementById('btn-csv').disabled=false;if(chartInst){chartInst.destroy();chartInst=null;}renderResults(false);}
+function limpar(){appData=[];slots=[{url:'',status:'idle'}];renderSlots();document.getElementById('results').style.display='none';document.getElementById('error-banner').style.display='none';document.getElementById('btn-csv').disabled=true;if(chartInst){chartInst.destroy();chartInst=null;}}
 </script>
 </body>
 </html>
