@@ -382,7 +382,7 @@ body{background:var(--bg)}
       </button>
       <button class="btn-sec" id="btn-csv" onclick="exportarCSV()" disabled>
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 5h6M4 7.5h6M4 10h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-        Baixar CSV
+        Baixar avaliação
       </button>
       <button class="btn-sec" onclick="limpar()">Limpar</button>
     </div>
@@ -756,7 +756,17 @@ function exportarCSV(){
   const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=url; a.download=`review-lens-${new Date().toISOString().split('T')[0]}.csv`;
+  const appName = ok.length === 1 ? ok[0].nome : `${ok.length}-apps`;
+  const qtd = document.getElementById('qty-select')?.value || ok[0].total || 'reviews';
+  const estrela = document.getElementById('star-select')?.value || 'todas';
+  const estrelaLabel = estrela === 'todas' ? 'todas-estrelas' : `${estrela}-estrelas`;
+  const fileSafe = `${appName}-${qtd}-avaliacoes-${estrelaLabel}`
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-zA-Z0-9]+/g,'-')
+    .replace(/^-+|-+$/g,'')
+    .toLowerCase();
+  a.href=url; a.download=`${fileSafe}.csv`;
   a.click(); URL.revokeObjectURL(url);
 }
 
