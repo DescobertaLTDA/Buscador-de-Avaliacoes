@@ -1,8 +1,8 @@
-# Paggio
+# Voxly
 
 Buscador de avaliacoes para apps da Google Play.
 
-O Paggio transforma reviews em sinais de produto: sentimento, notas, temas recorrentes, comentarios relevantes, criticas recentes, comparativo entre apps e exportacao em CSV.
+O Voxly transforma reviews em sinais de produto: sentimento, notas, temas recorrentes, comentarios relevantes, criticas recentes, comparativo entre apps e exportacao em CSV.
 
 ## Rodar localmente
 
