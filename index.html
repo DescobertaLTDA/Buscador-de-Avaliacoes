@@ -319,7 +319,7 @@ function renderSlots() {
     d.className = `app-slot ${slotClass}`;
     d.innerHTML = `
       <input class="slot-input" placeholder="https://play.google.com/store/apps/details?id=..." value="${s.url}"
-        oninput="slots[${i}].url=this.value">
+        oninput="slots[${i}].url=this.value;slots[${i}].status='idle';document.getElementById('error-banner').style.display='none';">
       <div class="slot-badge ${statusClass} ${statusTxt?'show':''}">${statusTxt}</div>`;
     g.appendChild(d);
   });
@@ -354,9 +354,9 @@ async function analisarTodos() {
     try {
       const res = await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url,quantidade:qty})});
       const data = await res.json();
-      if(!res.ok||data.erro){slots[i].status='error';appData.push({error:data.erro||'Erro',url,colorIdx:i});}
+      if(!res.ok||data.erro){slots[i].status='error';appData.push({error:data.erro||'Erro ao analisar este app',url,colorIdx:i});}
       else{slots[i].status='done';appData.push({...data,url,colorIdx:i});}
-    } catch(e) {slots[i].status='error';appData.push({error:'Sem conexão com o servidor',url,colorIdx:i});}
+    } catch(e) {slots[i].status='error';appData.push({error:'A API nao respondeu. Verifique se o backend foi publicado junto com o site.',url,colorIdx:i});}
     done++;
     renderSlots();
   }
@@ -367,7 +367,10 @@ async function analisarTodos() {
 
   const ok = appData.filter(d=>!d.error);
   if(ok.length){document.getElementById('btn-csv').disabled=false; renderResults();}
-  else showError('Nenhum app pôde ser analisado. Verifique as URLs e se o servidor Python está rodando na porta 5000.');
+  else {
+    const erro = appData.find(d=>d.error)?.error || 'Nenhum app pode ser analisado.';
+    showError(erro);
+  }
 }
 
 function setProg(pct, txt) {
