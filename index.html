@@ -3,642 +3,715 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Review Lens — Análise de Apps</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<title>Paggio - Buscador de Avaliações</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-:root {
-  --bg:        #f5f2eb;
-  --ink:       #1a1814;
-  --ink2:      #6b6558;
-  --ink3:      #a09890;
-  --card:      #fffdf8;
-  --border:    #e0dbd0;
-  --green:     #2d6a4f;
-  --green-bg:  #d8f3dc;
-  --red:       #9b2226;
-  --red-bg:    #fde8e8;
-  --amber:     #7b4f12;
-  --amber-bg:  #fff3cd;
-  --accent:    #c84b31;
-  --syne:      'Syne', sans-serif;
-  --mono:      'IBM Plex Mono', monospace;
-  --serif:     'Lora', serif;
+:root{
+  --bg:#ffffff;--bg2:#f6f6f6;--bg3:#eeeeee;--card:#ffffff;
+  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.16);
+  --ink:#050505;--ink2:#4f4f4f;--ink3:#8a8a8a;
+  --green:#111111;--green-bg:rgba(0,0,0,0.06);
+  --red:#111111;--red-bg:rgba(0,0,0,0.06);
+  --amber:#111111;--amber-bg:rgba(0,0,0,0.06);
+  --blue:#111111;--blue-bg:rgba(0,0,0,0.06);
+  --outfit:'Outfit',sans-serif;--mono:'IBM Plex Mono',monospace;
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--outfit);min-height:100vh;overflow-x:hidden}
 
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--syne);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+/* NAV */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:56px;border-bottom:0.5px solid var(--border);position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.9);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:300;font-size:14px;letter-spacing:.06em;color:var(--ink)}
+.nav-logo-icon{width:28px;height:28px;background:#050505;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-pill{font-family:var(--mono);font-size:10px;color:var(--ink3);border:0.5px solid var(--border2);border-radius:100px;padding:4px 12px;letter-spacing:.06em}
+.pulse{width:6px;height:6px;background:#050505;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* ─── HERO ─── */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 24px;
-  position: relative;
-  overflow: hidden;
-}
+/* HERO */
+.hero{padding:52px 32px 40px;max-width:1400px;margin:0 auto}
+.hero-eyebrow{font-family:var(--mono);font-size:10px;color:var(--blue);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.hero h1{font-size:clamp(30px,4vw,50px);font-weight:200;line-height:1.08;letter-spacing:-1.5px;color:var(--ink);margin-bottom:8px}
+.hero h1 strong{font-weight:400;color:#050505}
+.hero-sub{font-size:14px;color:var(--ink2);font-weight:300;max-width:500px;line-height:1.65;margin-bottom:28px}
+.hero-stats-row{display:flex;gap:0;border:0.5px solid var(--border2);border-radius:12px;overflow:hidden;margin-bottom:36px;width:fit-content}
+.hst{padding:14px 22px;border-right:0.5px solid var(--border);display:flex;flex-direction:column;gap:3px}
+.hst:last-child{border-right:none}
+.hst-n{font-size:20px;font-weight:200;color:var(--ink);letter-spacing:-.5px}
+.hst-l{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.06em}
 
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(0deg, transparent, transparent 39px, var(--border) 39px, var(--border) 40px),
-    repeating-linear-gradient(90deg, transparent, transparent 39px, var(--border) 39px, var(--border) 40px);
-  opacity: 0.4;
-  pointer-events: none;
-}
+/* INPUT SECTION */
+.input-section{background:var(--card);border:0.5px solid var(--border2);border-radius:16px;padding:26px;margin-bottom:0}
+.input-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.section-title{font-size:13px;font-weight:400;color:var(--ink)}
+.section-hint{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:2px;letter-spacing:.04em}
+.qty-wrap{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--ink2)}
+.qty-wrap select{background:var(--bg3);border:0.5px solid var(--border2);color:var(--ink2);padding:6px 10px;border-radius:8px;font-family:var(--mono);font-size:11px;cursor:pointer;outline:none}
 
-.hero-label {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  color: var(--ink3);
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  animation: fadeUp .6s ease both;
-}
+/* Slots */
+.apps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+@media(max-width:860px){.apps-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.apps-grid{grid-template-columns:1fr}}
 
-.hero h1 {
-  font-size: clamp(42px, 8vw, 88px);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  text-align: center;
-  margin-bottom: 12px;
-  animation: fadeUp .6s .1s ease both;
-}
+.app-slot{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:11px 13px;position:relative;transition:border-color .2s}
+.app-slot:focus-within{border-color:rgba(0,0,0,.45)}
+.app-slot.done{border-color:rgba(0,0,0,.35)}
+.app-slot.err{border-color:rgba(0,0,0,.35)}
+.slot-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.slot-num{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.1em}
+.slot-dot{width:7px;height:7px;border-radius:50%}
+.slot-input{width:100%;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:10px;color:var(--ink);line-height:1.4}
+.slot-input::placeholder{color:var(--ink3)}
+.slot-badge{font-family:var(--mono);font-size:9px;margin-top:6px;display:none}
+.slot-badge.show{display:block}
+.slot-badge.loading{color:var(--amber);animation:blink 1s infinite}
+.slot-badge.done{color:var(--green)}
+.slot-badge.err{color:var(--red)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-.hero h1 em {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 400;
-  color: var(--accent);
-}
+.slot-controls{display:flex;gap:8px;margin-bottom:16px}
+.btn-ghost{font-family:var(--mono);font-size:10px;padding:6px 12px;border-radius:7px;border:0.5px solid var(--border2);background:transparent;color:var(--ink3);cursor:pointer;transition:color .15s,border-color .15s;letter-spacing:.03em}
+.btn-ghost:hover{color:var(--ink);border-color:rgba(255,255,255,.2)}
 
-.hero-sub {
-  font-family: var(--serif);
-  font-style: italic;
-  color: var(--ink2);
-  font-size: 17px;
-  text-align: center;
-  margin-bottom: 48px;
-  animation: fadeUp .6s .2s ease both;
-}
+/* Action bar */
+.action-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn-primary{background:#050505;color:#fff;border:none;padding:12px 26px;border-radius:8px;font-family:var(--outfit);font-size:13px;font-weight:400;cursor:pointer;transition:opacity .2s,transform .1s;display:flex;align-items:center;gap:8px;letter-spacing:.01em}
+.btn-primary:hover{opacity:.87}
+.btn-primary:active{transform:scale(.98)}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed}
+.btn-sec{background:var(--bg3);color:var(--ink2);border:0.5px solid var(--border2);padding:12px 20px;border-radius:10px;font-family:var(--outfit);font-size:13px;font-weight:300;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:8px}
+.btn-sec:hover{color:var(--ink);border-color:rgba(255,255,255,.2)}
+.btn-sec:disabled{opacity:.3;cursor:not-allowed}
 
-/* ─── FORM ─── */
-.form-wrap {
-  width: 100%;
-  max-width: 600px;
-  animation: fadeUp .6s .3s ease both;
-  position: relative;
-  z-index: 1;
-}
+/* Progress */
+.progress-wrap{display:none;margin-top:18px}
+.progress-track{height:2px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-bottom:6px}
+.progress-fill{height:100%;background:#050505;border-radius:2px;transition:width .5s ease;width:0%}
+.progress-txt{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.05em}
 
-.input-row {
-  display: flex;
-  gap: 0;
-  border: 2px solid var(--ink);
-  border-radius: 6px;
-  overflow: hidden;
-  background: var(--card);
-  box-shadow: 4px 4px 0 var(--ink);
-  transition: box-shadow .2s;
-}
-.input-row:focus-within {
-  box-shadow: 6px 6px 0 var(--ink);
-}
+.error-banner{background:var(--red-bg);color:var(--red);border:0.5px solid rgba(239,68,68,.3);border-radius:8px;padding:10px 14px;font-size:11px;display:none;font-family:var(--mono);margin-top:14px}
 
-.url-input {
-  flex: 1;
-  padding: 16px 18px;
-  font-family: var(--mono);
-  font-size: 13px;
-  border: none;
-  background: transparent;
-  color: var(--ink);
-  outline: none;
-}
-.url-input::placeholder { color: var(--ink3); }
+/* RESULTS */
+#results{display:none;max-width:1400px;margin:0 auto;padding:32px 32px 80px}
 
-.qty-select {
-  padding: 16px 12px;
-  font-family: var(--mono);
-  font-size: 12px;
-  border: none;
-  border-left: 2px solid var(--border);
-  background: transparent;
-  color: var(--ink2);
-  cursor: pointer;
-  outline: none;
-  appearance: none;
-}
+/* App cards row */
+.compare-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:18px;border-bottom:0.5px solid var(--border)}
+.compare-bar-title{font-size:16px;font-weight:200;letter-spacing:-.5px}
+.compare-bar-actions{display:flex;gap:8px}
 
-.btn-analisar {
-  padding: 16px 24px;
-  font-family: var(--syne);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  background: var(--ink);
-  color: var(--bg);
-  border: none;
-  cursor: pointer;
-  transition: background .2s, transform .1s;
-}
-.btn-analisar:hover  { background: var(--accent); }
-.btn-analisar:active { transform: scale(0.98); }
-.btn-analisar:disabled { opacity: 0.5; cursor: not-allowed; }
+.apps-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:24px;scrollbar-width:thin;scrollbar-color:var(--border2) transparent}
+.apps-scroll::-webkit-scrollbar{height:3px}
+.apps-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 
-.hint {
-  margin-top: 10px;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink3);
-  text-align: center;
-}
+.app-card{min-width:210px;max-width:210px;background:var(--card);border:0.5px solid var(--border2);border-radius:14px;padding:16px;flex-shrink:0;cursor:pointer;transition:border-color .2s,background .2s}
+.app-card:hover{border-color:rgba(0,0,0,.35);background:#f8f8f8}
+.app-card-stripe{height:2px;border-radius:2px;margin-bottom:14px}
+.app-card-icon{width:40px;height:40px;border-radius:11px;object-fit:cover;background:var(--bg3);margin-bottom:9px;border:0.5px solid var(--border);display:block}
+.app-card-name{font-size:12px;font-weight:400;color:var(--ink);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app-card-dev{font-family:var(--mono);font-size:9px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:11px}
+.app-card-score{font-size:28px;font-weight:200;letter-spacing:-1px;color:var(--ink);line-height:1}
+.app-card-score-label{font-family:var(--mono);font-size:8px;color:var(--ink3);margin-top:3px;letter-spacing:.06em}
+.app-card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:10px}
+.mini-badge{font-family:var(--mono);font-size:8px;padding:3px 7px;border-radius:100px;border:0.5px solid}
+.mini-g{color:var(--green);border-color:rgba(34,197,94,.3);background:var(--green-bg)}
+.mini-r{color:var(--red);border-color:rgba(239,68,68,.3);background:var(--red-bg)}
+.mini-d{color:var(--ink3);border-color:var(--border);background:var(--bg3)}
 
-.error-msg {
-  margin-top: 12px;
-  background: var(--red-bg);
-  color: var(--red);
-  border: 1px solid #f5c2c2;
-  border-radius: 4px;
-  padding: 10px 14px;
-  font-size: 13px;
-  display: none;
-}
+/* CHART */
+.chart-card{background:var(--card);border:0.5px solid var(--border2);border-radius:16px;padding:24px;margin-bottom:22px}
+.chart-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;gap:12px;flex-wrap:wrap}
+.chart-head-left{}.chart-head-title{font-size:13px;font-weight:400;color:var(--ink)}
+.chart-head-sub{font-family:var(--mono);font-size:9px;color:var(--ink3);margin-top:2px;letter-spacing:.05em}
+.chart-tabs{display:flex;gap:4px}
+.ctab{font-family:var(--mono);font-size:10px;padding:5px 13px;border-radius:6px;border:0.5px solid var(--border);background:transparent;color:var(--ink3);cursor:pointer;transition:all .15s;letter-spacing:.04em}
+.ctab.active{background:var(--blue-bg);color:var(--blue);border-color:rgba(0,0,0,.35)}
+.chart-wrap{position:relative;height:260px}
 
-/* ─── LOADING ─── */
-.loading {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 60px 0;
-}
-.spinner {
-  width: 40px; height: 40px;
-  border: 3px solid var(--border);
-  border-top-color: var(--ink);
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-}
-.loading-text {
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--ink2);
-}
+/* DETAIL SECTION */
+.detail-card{background:var(--card);border:0.5px solid var(--border2);border-radius:16px;padding:24px;margin-bottom:16px}
+.detail-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;padding-bottom:18px;border-bottom:0.5px solid var(--border)}
+.detail-stripe{width:3px;min-height:52px;border-radius:3px;flex-shrink:0;margin-top:2px}
+.detail-icon{width:52px;height:52px;border-radius:13px;object-fit:cover;border:0.5px solid var(--border);flex-shrink:0;background:var(--bg3)}
+.detail-meta{flex:1;min-width:0}
+.detail-name{font-size:18px;font-weight:200;letter-spacing:-.5px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.detail-dev{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-bottom:10px}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:9px;padding:3px 9px;border-radius:100px;border:0.5px solid}
+.b-g{color:var(--green);border-color:rgba(34,197,94,.3);background:var(--green-bg)}
+.b-r{color:var(--red);border-color:rgba(239,68,68,.3);background:var(--red-bg)}
+.b-d{color:var(--ink3);border-color:var(--border);background:var(--bg3)}
+.b-a{color:var(--amber);border-color:rgba(245,158,11,.3);background:var(--amber-bg)}
 
-/* ─── RESULTS ─── */
-#results { display: none; padding: 40px 24px 80px; max-width: 1100px; margin: 0 auto; }
+/* Tabs */
+.dtabs{display:flex;gap:2px;margin-bottom:18px;border-bottom:0.5px solid var(--border);padding-bottom:0}
+.dtab{font-family:var(--mono);font-size:10px;padding:8px 15px;background:transparent;border:none;color:var(--ink3);cursor:pointer;letter-spacing:.05em;border-bottom:2px solid transparent;margin-bottom:-0.5px;transition:all .15s}
+.dtab.active{color:var(--blue);border-bottom-color:var(--blue)}
+.tpanel{display:none}.tpanel.active{display:block}
 
-.result-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 40px;
-  padding-bottom: 32px;
-  border-bottom: 2px solid var(--ink);
-  flex-wrap: wrap;
-}
-.app-icon {
-  width: 72px; height: 72px;
-  border-radius: 16px;
-  border: 2px solid var(--border);
-  object-fit: cover;
-  flex-shrink: 0;
-  background: var(--border);
-}
-.app-meta { flex: 1; }
-.app-title { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
-.app-dev   { font-family: var(--mono); font-size: 12px; color: var(--ink3); margin-bottom: 10px; }
-.app-badges { display: flex; gap: 8px; flex-wrap: wrap; }
-.badge {
-  font-family: var(--mono);
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 3px;
-  border: 1px solid currentColor;
-}
-.badge-ink   { color: var(--ink2); border-color: var(--border); background: var(--card); }
-.badge-green { color: var(--green); border-color: var(--green); background: var(--green-bg); }
-.badge-red   { color: var(--red);   border-color: var(--red);   background: var(--red-bg); }
+/* Metrics */
+.mstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:16px}
+.metric{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:15px;position:relative;overflow:hidden}
+.metric::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px}
+.m-t::after{background:#050505}.m-s::after{background:#050505}.m-p::after{background:#050505}.m-n::after{background:#050505}
+.mlabel{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.mval{font-size:26px;font-weight:200;letter-spacing:-.5px;line-height:1}
+.msub{font-size:10px;color:var(--ink3);margin-top:4px;font-family:var(--mono)}
 
-/* ─── METRICS ─── */
-.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 40px; }
-.metric {
-  background: var(--card);
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  padding: 18px;
-  position: relative;
-  overflow: hidden;
-}
-.metric::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 3px;
-}
-.metric.m-total::after  { background: var(--ink); }
-.metric.m-score::after  { background: #f4a261; }
-.metric.m-pos::after    { background: var(--green); }
-.metric.m-neg::after    { background: var(--red); }
+/* Panels 2col */
+.p2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:680px){.p2{grid-template-columns:1fr}}
+.panel{background:var(--bg3);border:0.5px solid var(--border);border-radius:11px;padding:18px}
+.panel.full{grid-column:1/-1}
+.ptitle{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ptitle::after{content:'';flex:1;height:0.5px;background:var(--border)}
 
-.metric-label { font-family: var(--mono); font-size: 10px; color: var(--ink3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
-.metric-value { font-size: 32px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
-.metric-sub   { font-size: 12px; color: var(--ink2); margin-top: 6px; font-family: var(--mono); }
+.tema-row{margin-bottom:9px}
+.tema-label{display:flex;justify-content:space-between;margin-bottom:3px}
+.tema-name{font-size:12px;font-weight:300;color:var(--ink)}
+.tema-count{font-family:var(--mono);font-size:10px;color:var(--ink3)}
+.tbar-bg{height:3px;background:var(--border);border-radius:2px}
+.tbar-fill{height:3px;border-radius:2px;transition:width .8s cubic-bezier(.16,1,.3,1)}
+.fill-r{background:#050505}.fill-g{background:#050505}
 
-/* ─── GRID PANELS ─── */
-.panels { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
-@media (max-width: 700px) { .panels { grid-template-columns: 1fr; } }
+.nota-row{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+.nota-star{font-family:var(--mono);font-size:10px;width:18px;color:var(--ink3)}
+.nbar-bg{flex:1;height:4px;background:var(--border);border-radius:3px;overflow:hidden}
+.nbar-fill{height:100%;border-radius:3px;background:#050505;transition:width .8s cubic-bezier(.16,1,.3,1)}
+.nota-pct{font-family:var(--mono);font-size:10px;color:var(--ink3);width:30px;text-align:right}
 
-.panel {
-  background: var(--card);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 24px;
-}
-.panel.full { grid-column: 1 / -1; }
+.sent-row{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.sent-label{font-size:12px;font-weight:300;width:68px}
+.sbar-bg{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.sbar-fill{height:100%;border-radius:3px}
+.sent-pct{font-family:var(--mono);font-size:10px;width:34px;text-align:right;color:var(--ink2)}
 
-.panel-title {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.panel-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+/* Review cards */
+.rcard{border:0.5px solid var(--border);border-radius:9px;padding:12px;margin-bottom:7px;background:var(--bg);transition:border-color .15s}
+.rcard:hover{border-color:var(--border2)}
+.rtop{display:flex;align-items:center;gap:7px;margin-bottom:7px;flex-wrap:wrap}
+.ruser{font-size:11px;font-weight:400;color:var(--ink2)}
+.rdate{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-left:auto}
+.rlikes{font-family:var(--mono);font-size:10px;color:var(--ink3)}
+.rtext{font-size:12px;line-height:1.6;color:var(--ink2);font-weight:300}
 
-/* bar chart */
-.tema-row { margin-bottom: 12px; }
-.tema-label { display: flex; justify-content: space-between; margin-bottom: 4px; }
-.tema-name  { font-size: 13px; color: var(--ink); }
-.tema-count { font-family: var(--mono); font-size: 11px; color: var(--ink3); }
-.tema-bar-bg { height: 5px; background: var(--border); border-radius: 3px; }
-.tema-bar-fill { height: 5px; border-radius: 3px; transition: width .8s cubic-bezier(.16,1,.3,1); }
-.fill-neg { background: var(--red); }
-.fill-pos { background: var(--green); }
+/* Money */
+.money-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:10px}
+.mcard{background:var(--bg);border:0.5px solid var(--border);border-radius:9px;padding:12px}
+.mcard-label{font-family:var(--mono);font-size:9px;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.mcard-val{font-size:18px;font-weight:200;color:var(--ink)}
+.money-nota{margin-top:10px;font-family:var(--mono);font-size:10px;color:var(--ink3);line-height:1.5;padding:8px 12px;background:var(--bg);border-radius:7px;border:0.5px solid var(--border)}
+.mbadge{display:inline-block;font-family:var(--mono);font-size:10px;padding:4px 11px;border-radius:100px;border:0.5px solid;margin-bottom:12px}
+.mb-p{color:var(--amber);border-color:rgba(245,158,11,.3);background:var(--amber-bg)}
+.mb-f{color:var(--green);border-color:rgba(34,197,94,.3);background:var(--green-bg)}
+.mb-g{color:var(--ink3);border-color:var(--border);background:var(--bg3)}
+.no-data{font-size:11px;color:var(--ink3);font-family:var(--mono);padding:6px 0}
 
-/* nota dist */
-.nota-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.nota-star { font-family: var(--mono); font-size: 12px; width: 20px; color: var(--ink2); }
-.nota-bar-bg { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
-.nota-bar-fill { height: 100%; border-radius: 4px; background: #f4a261; transition: width .8s cubic-bezier(.16,1,.3,1); }
-.nota-pct { font-family: var(--mono); font-size: 11px; color: var(--ink3); width: 32px; text-align: right; }
-
-/* reviews */
-.review-card {
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 12px;
-  background: var(--bg);
-  transition: border-color .2s;
-}
-.review-card:hover { border-color: var(--ink); }
-.review-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.review-stars { font-size: 13px; }
-.review-date { font-family: var(--mono); font-size: 11px; color: var(--ink3); margin-left: auto; }
-.review-likes { font-family: var(--mono); font-size: 11px; color: var(--ink3); }
-.review-user { font-size: 12px; font-weight: 600; color: var(--ink2); }
-.review-text { font-family: var(--serif); font-size: 14px; line-height: 1.6; color: var(--ink); }
-
-/* sentiment donut placeholder */
-.sentiment-bars { display: flex; flex-direction: column; gap: 12px; }
-.sent-row { display: flex; align-items: center; gap: 12px; }
-.sent-label { font-size: 13px; width: 80px; }
-.sent-bar-bg { flex: 1; height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
-.sent-bar-fill { height: 100%; border-radius: 5px; }
-.sent-pct { font-family: var(--mono); font-size: 12px; font-weight: 500; width: 40px; text-align: right; }
-
-/* new analysis btn */
-.btn-new {
-  display: inline-block;
-  margin-bottom: 32px;
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--ink2);
-  background: none;
-  border: 1.5px solid var(--border);
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: border-color .2s, color .2s;
-}
-.btn-new:hover { border-color: var(--ink); color: var(--ink); }
-
-/* ─── ANIMATIONS ─── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.fade-in { animation: fadeUp .5s ease both; }
+/* Anim */
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp .4s ease both}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 </style>
 </head>
 <body>
 
-<!-- ══ HERO ══ -->
-<section class="hero" id="hero">
-  <div class="hero-label">Ferramenta de inteligência competitiva</div>
-  <h1>Review<br><em>Lens</em></h1>
-  <p class="hero-sub">Cole a URL de qualquer app da Google Play e descubra<br>o que os usuários realmente pensam.</p>
-
-  <div class="form-wrap">
-    <div class="input-row">
-      <input
-        class="url-input"
-        id="url-input"
-        type="text"
-        placeholder="https://play.google.com/store/apps/details?id=..."
-        autocomplete="off"
-        spellcheck="false"
-      />
-      <select class="qty-select" id="qty-select">
-        <option value="100">100</option>
-        <option value="200">200</option>
-        <option value="300" selected>300</option>
-        <option value="500">500 max</option>
-      </select>
-      <button class="btn-analisar" id="btn-analisar" onclick="analisar()">Analisar →</button>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L12 6.5L6.5 12L1 6.5L6.5 1Z" fill="white"/></svg>
     </div>
-    <div class="hint">Funciona com qualquer app da Google Play Store</div>
-    <div class="error-msg" id="error-msg"></div>
+    PAGGIO
+  </div>
+  <div class="nav-right">
+    <span class="pulse"></span>
+    <span class="nav-pill">BUSCADOR DE AVALIACOES</span>
+  </div>
+</nav>
+
+<!-- HERO + INPUT -->
+<div class="hero">
+  <div class="hero-eyebrow">inteligencia competitiva · google play store</div>
+  <h1>Descubra o que clientes<br><strong>dizem antes de construir</strong></h1>
+  <p class="hero-sub">Paggio transforma avaliacoes da Google Play em sinais de produto: dores, elogios, notas, temas recorrentes e oportunidades de mercado.</p>
+
+  <div class="hero-stats-row">
+    <div class="hst"><div class="hst-n">8</div><div class="hst-l">APPS SIMULTÂNEOS</div></div>
+    <div class="hst"><div class="hst-n">500</div><div class="hst-l">REVIEWS / APP</div></div>
+    <div class="hst"><div class="hst-n">CSV</div><div class="hst-l">EXPORT COMPLETO</div></div>
+    <div class="hst"><div class="hst-n">100%</div><div class="hst-l">GRATUITO</div></div>
   </div>
 
-  <div class="loading" id="loading">
-    <div class="spinner"></div>
-    <div class="loading-text" id="loading-text">Coletando reviews...</div>
-  </div>
-</section>
+  <div class="input-section">
+    <div class="input-header">
+      <div>
+        <div class="section-title">Apps para analisar</div>
+        <div class="section-hint">Os exemplos abaixo ja aparecem analisados. Troque por qualquer URL da Google Play.</div>
+      </div>
+      <div class="qty-wrap">
+        Reviews por app:
+        <select id="qty-select">
+          <option value="100">100</option>
+          <option value="200">200</option>
+          <option value="300" selected>300</option>
+          <option value="500">500 max</option>
+        </select>
+      </div>
+    </div>
 
-<!-- ══ RESULTS ══ -->
+    <div class="apps-grid" id="apps-grid"></div>
+
+    <div class="slot-controls">
+      <button class="btn-ghost" onclick="addSlot()">+ Adicionar app</button>
+      <button class="btn-ghost" onclick="removeSlot()">− Remover último</button>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn-primary" id="btn-analisar" onclick="analisarTodos()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="1.4"/><path d="M7 4.2v2.8l1.8 1.8" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Analisar apps
+      </button>
+      <button class="btn-sec" id="btn-csv" onclick="exportarCSV()" disabled>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 5h6M4 7.5h6M4 10h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Baixar CSV
+      </button>
+      <button class="btn-sec" onclick="limpar()">Limpar</button>
+    </div>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-txt" id="progress-txt">Iniciando...</div>
+    </div>
+
+    <div class="error-banner" id="error-banner"></div>
+  </div>
+</div>
+
+<!-- RESULTS -->
 <div id="results">
-  <button class="btn-new" onclick="novaAnalise()">← Nova análise</button>
+  <div style="max-width:1400px;margin:0 auto;padding:0 32px 80px">
 
-  <div class="result-header" id="result-header"></div>
-  <div class="metrics" id="metrics"></div>
+    <div class="compare-bar">
+      <div class="compare-bar-title" id="compare-title">Comparativo</div>
+      <div class="compare-bar-actions">
+        <button class="btn-sec" style="font-size:12px;padding:7px 14px" onclick="scrollTo({top:0,behavior:'smooth'})">← Nova análise</button>
+      </div>
+    </div>
 
-  <div class="panels">
-    <div class="panel" id="panel-neg">
-      <div class="panel-title">Temas mais reclamados</div>
-      <div id="temas-neg-content"></div>
+    <!-- App cards -->
+    <div class="apps-scroll" id="apps-scroll"></div>
+
+    <!-- Line chart (≥2 apps) -->
+    <div class="chart-card" id="chart-card" style="display:none">
+      <div class="chart-head">
+        <div class="chart-head-left">
+          <div class="chart-head-title">Comparativo de sentimentos por app</div>
+          <div class="chart-head-sub">clique nas abas para alternar entre positivas, negativas e nota média</div>
+        </div>
+        <div class="chart-tabs">
+          <button class="ctab active" onclick="switchChart('pos',this)">% Positivas</button>
+          <button class="ctab" onclick="switchChart('neg',this)">% Negativas</button>
+          <button class="ctab" onclick="switchChart('nota',this)">Nota média</button>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="lineChart"></canvas></div>
     </div>
-    <div class="panel" id="panel-pos">
-      <div class="panel-title">Temas mais elogiados</div>
-      <div id="temas-pos-content"></div>
-    </div>
-    <div class="panel">
-      <div class="panel-title">Distribuição de notas</div>
-      <div id="dist-notas"></div>
-    </div>
-    <div class="panel">
-      <div class="panel-title">Sentimento geral</div>
-      <div class="sentiment-bars" id="sentimento"></div>
-    </div>
-    <div class="panel full">
-      <div class="panel-title">Reviews mais curtidas</div>
-      <div id="top-reviews"></div>
-    </div>
-    <div class="panel full">
-      <div class="panel-title">Críticas recentes (1–2 estrelas)</div>
-      <div id="recentes-neg"></div>
-    </div>
+
+    <!-- Detail per app -->
+    <div id="detail-container"></div>
   </div>
 </div>
 
 <script>
-const API = "http://localhost:5000/api/analisar";
+const API = '/api/analisar';
+const COLORS = ['#050505','#2a2a2a','#444444','#5f5f5f','#777777','#909090','#aaaaaa','#c4c4c4'];
 
-const loadingMsgs = [
-  "Coletando reviews...",
-  "Analisando sentimentos...",
-  "Classificando temas...",
-  "Quase pronto...",
+const PRESETS = [
+  'https://play.google.com/store/apps/details?id=br.com.brainweb.ifood&hl=pt_BR',
+  'https://play.google.com/store/apps/details?id=com.ubercab&hl=pt_BR',
+  'https://play.google.com/store/apps/details?id=com.netflix.mediaclient&hl=pt_BR',
 ];
 
-let loadingInterval;
+const DEMO_APPS = [
+  {
+    nome:'iFood', app_id:'br.com.brainweb.ifood', score_geral:4.7, instalacoes:'100 mi+', developer:'iFood Delivery de Comida e Mercado', categoria:'Comer e beber', preco_app:'Gratis', in_app:'', tem_inapp:false, total:300, media:4.42, colorIdx:0, url:PRESETS[0],
+    sentimentos:{positivo:238, neutro:25, negativo:37}, dist_notas:{'5':214,'4':24,'3':25,'2':12,'1':25},
+    temas_neg:{'bug / erro':15,'preco / plano':9,'cartao / parcelas':7,'interface / UX':6},
+    temas_pos:{'interface / UX':82,'geral':65,'notif / importacao':18,'relatorios':8},
+    receita_detalhes:{modelo:'gratuito', nota:'Exemplo de demonstracao: Paggio usa reviews reais quando voce clica em Analisar apps.'},
+    top_reviews:[
+      {usuario:'Cliente recorrente', data:'12/04/2026', score:5, curtidas:42, texto:'Entrega rapida e variedade boa. Uso para comparar restaurantes e resolver compras de ultima hora.'},
+      {usuario:'Usuario premium', data:'08/04/2026', score:4, curtidas:18, texto:'O app melhorou bastante, mas ainda sinto falta de filtros mais claros por taxa de entrega.'}
+    ],
+    recentes_neg:[
+      {data:'17/04/2026', score:2, curtidas:9, texto:'Quando o pagamento falha, a mensagem nao explica bem o motivo.'},
+      {data:'15/04/2026', score:1, curtidas:6, texto:'Travou no acompanhamento do pedido e precisei fechar o app.'}
+    ]
+  },
+  {
+    nome:'Uber', app_id:'com.ubercab', score_geral:4.5, instalacoes:'500 mi+', developer:'Uber Technologies, Inc.', categoria:'Mapas e navegacao', preco_app:'Gratis', in_app:'', tem_inapp:false, total:300, media:4.18, colorIdx:1, url:PRESETS[1],
+    sentimentos:{positivo:211, neutro:34, negativo:55}, dist_notas:{'5':185,'4':26,'3':34,'2':18,'1':37},
+    temas_neg:{'preco / plano':22,'bug / erro':14,'sincronizacao':8,'interface / UX':6},
+    temas_pos:{'interface / UX':64,'geral':59,'relatorios':12},
+    receita_detalhes:{modelo:'gratuito', nota:'Exemplo de demonstracao: substitua os links e gere uma analise nova.'},
+    top_reviews:[
+      {usuario:'Passageiro diario', data:'10/04/2026', score:5, curtidas:35, texto:'Facil de chamar, acompanhar rota e pagar sem burocracia.'},
+      {usuario:'Motorista parceiro', data:'04/04/2026', score:4, curtidas:21, texto:'Funciona bem na maior parte do tempo. O suporte poderia ser mais direto.'}
+    ],
+    recentes_neg:[
+      {data:'16/04/2026', score:2, curtidas:11, texto:'Preco variando muito em horarios normais.'},
+      {data:'14/04/2026', score:1, curtidas:7, texto:'O mapa demorou para atualizar e o motorista apareceu no lugar errado.'}
+    ]
+  },
+  {
+    nome:'Netflix', app_id:'com.netflix.mediaclient', score_geral:4.2, instalacoes:'1 bi+', developer:'Netflix, Inc.', categoria:'Entretenimento', preco_app:'Gratis', in_app:'R$ 20,90 - R$ 59,90', tem_inapp:true, total:300, media:3.96, colorIdx:2, url:PRESETS[2],
+    sentimentos:{positivo:188, neutro:41, negativo:71}, dist_notas:{'5':160,'4':28,'3':41,'2':24,'1':47},
+    temas_neg:{'preco / plano':28,'bug / erro':16,'interface / UX':11,'sincronizacao':7},
+    temas_pos:{'geral':72,'interface / UX':44,'relatorios':15},
+    receita_detalhes:{modelo:'freemium (in-app)', faixa_inapp:'R$ 20,90 - R$ 59,90', ticket_medio_est:'R$ 40,40', taxa_conversao:'~3%', instalacoes_mes_est:41666666, receita_mensal_est:'R$ 35.350.000', nota:'Estimativa demonstrativa para mostrar o modulo de monetizacao.'},
+    top_reviews:[
+      {usuario:'Maratonista', data:'11/04/2026', score:5, curtidas:30, texto:'Catalogo grande e reproducao estavel na TV e no celular.'},
+      {usuario:'Familia conectada', data:'07/04/2026', score:4, curtidas:13, texto:'Perfis ajudam bastante, mas a busca poderia entender melhor nomes parecidos.'}
+    ],
+    recentes_neg:[
+      {data:'18/04/2026', score:2, curtidas:15, texto:'O preco pesa e alguns titulos somem rapido.'},
+      {data:'13/04/2026', score:1, curtidas:8, texto:'Depois da atualizacao, alguns episodios ficaram carregando sem abrir.'}
+    ]
+  }
+];
 
-function starStr(n, size = 13) {
-  const full  = Math.round(n);
-  const empty = 5 - full;
-  return `<span style="color:#f4a261;font-size:${size}px">${"★".repeat(full)}</span><span style="color:#e0dbd0;font-size:${size}px">${"☆".repeat(empty)}</span>`;
+let slots = [];
+let appData = [];
+let chartInst = null;
+let chartMode = 'pos';
+
+/* ── Slots ── */
+function renderSlots() {
+  const g = document.getElementById('apps-grid');
+  g.innerHTML = '';
+  slots.forEach((s,i) => {
+    const c = COLORS[i % COLORS.length];
+    const statusClass = s.status === 'loading' ? 'loading' : s.status === 'done' ? 'done' : s.status === 'error' ? 'err' : '';
+    const statusTxt = s.status === 'loading' ? 'analisando...' : s.status === 'done' ? '✓ carregado' : s.status === 'error' ? '✗ erro' : '';
+    const slotClass = s.status === 'done' ? 'done' : s.status === 'error' ? 'err' : '';
+    const d = document.createElement('div');
+    d.className = `app-slot ${slotClass}`;
+    d.innerHTML = `
+      <div class="slot-top">
+        <span class="slot-num">APP ${i+1}</span>
+        <span class="slot-dot" style="background:${c}"></span>
+      </div>
+      <input class="slot-input" placeholder="https://play.google.com/store/apps/..." value="${s.url}"
+        oninput="slots[${i}].url=this.value">
+      <div class="slot-badge ${statusClass} ${statusTxt?'show':''}">${statusTxt}</div>`;
+    g.appendChild(d);
+  });
 }
 
-function pct(a, total) {
-  return total > 0 ? Math.round((a / total) * 100) : 0;
+function addSlot() { if(slots.length>=8) return; slots.push({url:'',status:'idle'}); renderSlots(); }
+function removeSlot() { if(slots.length<=1) return; slots.pop(); renderSlots(); }
+
+PRESETS.forEach(u => slots.push({url:u, status:'idle'}));
+DEMO_APPS.forEach((_, i) => {
+  if (slots[i]) slots[i].status = 'done';
+});
+renderSlots();
+appData = DEMO_APPS.map(d => ({...d}));
+renderResults(false);
+
+/* ── Analyze ── */
+async function analisarTodos() {
+  const urls = slots.map(s=>s.url.trim()).filter(u=>u);
+  if(!urls.length){showError('Adicione pelo menos uma URL.'); return;}
+
+  document.getElementById('btn-analisar').disabled = true;
+  document.getElementById('btn-csv').disabled = true;
+  document.getElementById('error-banner').style.display = 'none';
+  document.getElementById('progress-wrap').style.display = 'block';
+
+  appData = [];
+  const qty = document.getElementById('qty-select').value;
+  const activeSlots = slots.map((s,i)=>({url:s.url.trim(),i})).filter(s=>s.url);
+
+  activeSlots.forEach(({i}) => { slots[i].status = 'loading'; });
+  renderSlots();
+
+  let done = 0;
+  for(const {url,i} of activeSlots) {
+    setProg(Math.round((done/activeSlots.length)*100), `Analisando ${done+1} de ${activeSlots.length}...`);
+    try {
+      const res = await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url,quantidade:qty})});
+      const data = await res.json();
+      if(!res.ok||data.erro){slots[i].status='error';appData.push({error:data.erro||'Erro',url,colorIdx:i});}
+      else{slots[i].status='done';appData.push({...data,url,colorIdx:i});}
+    } catch(e) {slots[i].status='error';appData.push({error:'Sem conexão com o servidor',url,colorIdx:i});}
+    done++;
+    renderSlots();
+  }
+
+  setProg(100,'Concluído!');
+  setTimeout(()=>{document.getElementById('progress-wrap').style.display='none';},1000);
+  document.getElementById('btn-analisar').disabled = false;
+
+  const ok = appData.filter(d=>!d.error);
+  if(ok.length){document.getElementById('btn-csv').disabled=false; renderResults();}
+  else showError('Nenhum app pôde ser analisado. Verifique as URLs e se o servidor Python está rodando na porta 5000.');
 }
 
-function showError(msg) {
-  const el = document.getElementById("error-msg");
-  el.textContent = msg;
-  el.style.display = "block";
+function setProg(pct, txt) {
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-txt').textContent = txt;
 }
 
-function hideError() {
-  document.getElementById("error-msg").style.display = "none";
+/* ── Render ── */
+function renderResults(scroll=true) {
+  document.getElementById('results').style.display = 'block';
+  if(scroll) document.getElementById('results').scrollIntoView({behavior:'smooth'});
+
+  const ok = appData.filter(d=>!d.error);
+  document.getElementById('compare-title').textContent =
+    ok.length>1 ? `Comparativo · ${ok.length} apps analisados` : `Análise · ${ok[0]?.nome||''}`;
+
+  renderAppCards();
+  if(ok.length>=2){document.getElementById('chart-card').style.display='block'; buildChart(ok,chartMode);}
+  else document.getElementById('chart-card').style.display='none';
+  renderDetails();
 }
 
-async function analisar() {
-  const url = document.getElementById("url-input").value.trim();
-  const qty = document.getElementById("qty-select").value;
+function renderAppCards() {
+  const sc = document.getElementById('apps-scroll');
+  sc.innerHTML = '';
+  appData.forEach((d,i) => {
+    const c = COLORS[d.colorIdx%COLORS.length];
+    const el = document.createElement('div');
+    el.className = 'app-card';
+    el.onclick = ()=>document.getElementById(`det-${i}`).scrollIntoView({behavior:'smooth'});
+    if(d.error){
+      el.innerHTML=`<div class="app-card-stripe" style="background:${c}"></div><div class="app-card-name" style="color:var(--red)">Erro ao carregar</div><div class="app-card-dev">${d.url.substring(0,36)}...</div><div class="mini-badge mini-r">falha</div>`;
+    } else {
+      const pp=pct(d.sentimentos?.positivo||0,d.total);
+      el.innerHTML=`
+        <div class="app-card-stripe" style="background:${c}"></div>
+        ${d.icone?`<img class="app-card-icon" src="${d.icone}" alt="${d.nome}">`:`<div class="app-card-icon"></div>`}
+        <div class="app-card-name">${d.nome}</div>
+        <div class="app-card-dev">${d.developer||''}</div>
+        <div class="app-card-score">${d.score_geral||d.media}</div>
+        <div class="app-card-score-label">NOTA · ${d.instalacoes}</div>
+        <div class="app-card-tags">
+          <span class="mini-badge ${pp>=70?'mini-g':'mini-r'}">${pp}% pos</span>
+          <span class="mini-badge mini-d">${d.total} rev</span>
+        </div>`;
+    }
+    sc.appendChild(el);
+  });
+}
 
-  if (!url) { showError("Cole a URL do app primeiro."); return; }
-  hideError();
+/* ── Chart ── */
+function buildChart(data, mode) {
+  const ctx = document.getElementById('lineChart').getContext('2d');
+  if(chartInst){chartInst.destroy();}
 
-  const btn = document.getElementById("btn-analisar");
-  btn.disabled = true;
+  const labels = data.map(d=>d.nome||(d.url.substring(0,18)+'...'));
+  let vals, yLabel, maxY;
 
-  // show loading inside hero
-  document.getElementById("loading").style.display = "flex";
-  document.getElementById("results").style.display = "none";
+  if(mode==='pos'){vals=data.map(d=>pct(d.sentimentos?.positivo||0,d.total));yLabel='% Positivas';maxY=100;}
+  else if(mode==='neg'){vals=data.map(d=>pct(d.sentimentos?.negativo||0,d.total));yLabel='% Negativas';maxY=100;}
+  else{vals=data.map(d=>parseFloat(d.media)||0);yLabel='Nota Média';maxY=5;}
 
-  let i = 0;
-  loadingInterval = setInterval(() => {
-    document.getElementById("loading-text").textContent = loadingMsgs[i % loadingMsgs.length];
-    i++;
-  }, 1800);
+  const ptColors = data.map(d=>COLORS[d.colorIdx%COLORS.length]);
 
-  try {
-    const res = await fetch(API, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url, quantidade: qty }),
-    });
-    const data = await res.json();
+  chartInst = new Chart(ctx,{
+    type:'line',
+    data:{
+      labels,
+      datasets:[{
+        label:yLabel,
+        data:vals,
+        borderColor:ptColors,
+        backgroundColor:ptColors.map(c=>c+'18'),
+        pointBackgroundColor:ptColors,
+        pointBorderColor:ptColors,
+        pointBorderWidth:0,
+        pointRadius:9,
+        pointHoverRadius:12,
+        borderWidth:1.5,
+        tension:0.4,
+        fill:false,
+        segment:{borderColor:ctx=>{
+          const i=ctx.p0DataIndex;
+          return `${COLORS[data[i]?.colorIdx%COLORS.length]}88`||'#05050588';
+        }}
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'#16161f',borderColor:'rgba(255,255,255,0.1)',borderWidth:1,
+          titleColor:'#f0f0f5',bodyColor:'#9090a8',
+          titleFont:{family:'IBM Plex Mono',size:11},bodyFont:{family:'IBM Plex Mono',size:10},
+          callbacks:{label:c=>` ${c.parsed.y}${mode==='nota'?'★':'%'}`}
+        }
+      },
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,0.04)',lineWidth:.5},ticks:{color:'#55556a',font:{family:'IBM Plex Mono',size:10}},border:{color:'rgba(255,255,255,0.06)'}},
+        y:{grid:{color:'rgba(255,255,255,0.04)',lineWidth:.5},ticks:{color:'#55556a',font:{family:'IBM Plex Mono',size:10},callback:v=>mode==='nota'?v+'★':v+'%'},border:{color:'rgba(255,255,255,0.06)'},min:0,max:maxY}
+      }
+    }
+  });
+}
 
-    clearInterval(loadingInterval);
-    document.getElementById("loading").style.display = "none";
-    btn.disabled = false;
+function switchChart(mode,btn){
+  chartMode=mode;
+  document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  buildChart(appData.filter(d=>!d.error),mode);
+}
 
-    if (!res.ok || data.erro) {
-      showError(data.erro || "Erro desconhecido.");
-      return;
+/* ── Details ── */
+function renderDetails() {
+  const ct = document.getElementById('detail-container');
+  ct.innerHTML='';
+  appData.forEach((d,i)=>{
+    const c=COLORS[d.colorIdx%COLORS.length];
+    const sec=document.createElement('div');
+    sec.id=`det-${i}`;
+    sec.className='detail-card fade-in';
+    sec.style.animationDelay=`${i*.07}s`;
+
+    if(d.error){
+      sec.innerHTML=`<div class="detail-head"><div class="detail-stripe" style="background:${c}"></div><div class="detail-meta"><div class="detail-name" style="color:var(--red)">Falha ao carregar</div><div class="detail-dev">${d.url}</div><div class="badges"><span class="badge b-r">${d.error}</span></div></div></div>`;
+      ct.appendChild(sec);return;
     }
 
-    renderResults(data);
-  } catch (e) {
-    clearInterval(loadingInterval);
-    document.getElementById("loading").style.display = "none";
-    btn.disabled = false;
-    showError("Não foi possível conectar ao servidor. Certifique-se que o server.py está rodando na porta 5000.");
-  }
-}
+    const pp=pct(d.sentimentos?.positivo||0,d.total);
+    const pos=d.sentimentos?.positivo||0, neg=d.sentimentos?.negativo||0;
+    const negMax=Math.max(...Object.values(d.temas_neg||{}),1);
+    const posMax=Math.max(...Object.values(d.temas_pos||{}),1);
+    const td=Object.values(d.dist_notas||{}).reduce((a,b)=>a+b,0);
+    const rd=d.receita_detalhes||{};
+    const mbCls=rd.modelo==='app pago'?'mb-p':rd.modelo==='freemium (in-app)'?'mb-f':'mb-g';
+    const mbLabel=rd.modelo==='app pago'?'App Pago':rd.modelo==='freemium (in-app)'?'Freemium / In-App':'Gratuito';
 
-function renderResults(d) {
-  document.getElementById("results").style.display = "block";
-  document.getElementById("results").scrollIntoView({ behavior: "smooth" });
+    let moneyH=`<span class="mbadge ${mbCls}">${mbLabel}</span>`;
+    if(rd.modelo==='app pago'){
+      moneyH+=`<div class="money-grid"><div class="mcard"><div class="mcard-label">Preço</div><div class="mcard-val" style="color:var(--amber)">${rd.preco_app||'?'}</div></div><div class="mcard"><div class="mcard-label">Inst./mês est.</div><div class="mcard-val">${(rd.instalacoes_mes_est||0).toLocaleString('pt-BR')}</div></div><div class="mcard"><div class="mcard-label">Receita est.</div><div class="mcard-val" style="color:var(--green)">${rd.receita_mensal_est||'?'}</div></div></div>`;
+    } else if(rd.modelo==='freemium (in-app)'){
+      moneyH+=`<div class="money-grid"><div class="mcard"><div class="mcard-label">Faixa in-app</div><div class="mcard-val" style="color:var(--amber);font-size:14px">${rd.faixa_inapp||'?'}</div></div><div class="mcard"><div class="mcard-label">Ticket médio</div><div class="mcard-val">${rd.ticket_medio_est||'?'}</div></div><div class="mcard"><div class="mcard-label">Conversão</div><div class="mcard-val">${rd.taxa_conversao||'~3%'}</div></div><div class="mcard"><div class="mcard-label">Receita est.</div><div class="mcard-val" style="color:var(--green)">${rd.receita_mensal_est||'?'}</div></div></div>`;
+    } else {
+      moneyH+=`<p class="no-data">App gratuito sem compras in-app identificadas. Pode monetizar via anúncios.</p>`;
+    }
+    if(rd.nota) moneyH+=`<div class="money-nota">⚠ ${rd.nota}</div>`;
 
-  // Header
-  const posRate = pct(d.sentimentos?.positivo || 0, d.total);
-  document.getElementById("result-header").innerHTML = `
-    ${d.icone ? `<img class="app-icon" src="${d.icone}" alt="${d.nome}">` : ""}
-    <div class="app-meta">
-      <div class="app-title">${d.nome}</div>
-      <div class="app-dev">${d.developer} · ${d.instalacoes} instalações</div>
-      <div class="app-badges">
-        <span class="badge badge-ink">${d.app_id}</span>
-        <span class="badge ${posRate >= 70 ? "badge-green" : "badge-red"}">${posRate}% positivo</span>
-        <span class="badge badge-ink">${d.total} reviews analisadas</span>
+    sec.innerHTML=`
+      <div class="detail-head">
+        <div class="detail-stripe" style="background:${c}"></div>
+        ${d.icone?`<img class="detail-icon" src="${d.icone}" alt="${d.nome}">`:`<div class="detail-icon"></div>`}
+        <div class="detail-meta">
+          <div class="detail-name">${d.nome}</div>
+          <div class="detail-dev">${d.developer||''} · ${d.instalacoes||''} instalações · ${d.categoria||''}</div>
+          <div class="badges">
+            <span class="badge b-d">${d.preco_app||'Grátis'}</span>
+            ${d.in_app?`<span class="badge b-d">In-app: ${d.in_app}</span>`:''}
+            <span class="badge ${pp>=70?'b-g':'b-r'}">${pp}% positivo</span>
+            <span class="badge b-d">${d.total} reviews</span>
+          </div>
+        </div>
       </div>
-    </div>
-  `;
 
-  // Metrics
-  const neg = d.sentimentos?.negativo || 0;
-  const pos = d.sentimentos?.positivo || 0;
-  document.getElementById("metrics").innerHTML = `
-    <div class="metric m-total fade-in">
-      <div class="metric-label">Reviews</div>
-      <div class="metric-value">${d.total}</div>
-      <div class="metric-sub">coletadas</div>
-    </div>
-    <div class="metric m-score fade-in" style="animation-delay:.05s">
-      <div class="metric-label">Nota média</div>
-      <div class="metric-value">${d.media}</div>
-      <div class="metric-sub">${starStr(d.media, 11)}</div>
-    </div>
-    <div class="metric m-pos fade-in" style="animation-delay:.1s">
-      <div class="metric-label">Positivas</div>
-      <div class="metric-value" style="color:var(--green)">${pct(pos, d.total)}%</div>
-      <div class="metric-sub">${pos} reviews</div>
-    </div>
-    <div class="metric m-neg fade-in" style="animation-delay:.15s">
-      <div class="metric-label">Negativas</div>
-      <div class="metric-value" style="color:var(--red)">${pct(neg, d.total)}%</div>
-      <div class="metric-sub">${neg} reviews · oportunidades</div>
-    </div>
-  `;
-
-  // Temas negativos
-  const negMax = Math.max(...Object.values(d.temas_neg), 1);
-  document.getElementById("temas-neg-content").innerHTML = Object.entries(d.temas_neg)
-    .map(([t, n]) => `
-      <div class="tema-row">
-        <div class="tema-label">
-          <span class="tema-name">${t}</span>
-          <span class="tema-count">${n}</span>
-        </div>
-        <div class="tema-bar-bg">
-          <div class="tema-bar-fill fill-neg" style="width:${Math.round((n / negMax) * 100)}%"></div>
-        </div>
-      </div>`).join("");
-
-  // Temas positivos
-  const posMax = Math.max(...Object.values(d.temas_pos), 1);
-  document.getElementById("temas-pos-content").innerHTML = Object.entries(d.temas_pos)
-    .map(([t, n]) => `
-      <div class="tema-row">
-        <div class="tema-label">
-          <span class="tema-name">${t}</span>
-          <span class="tema-count">${n}</span>
-        </div>
-        <div class="tema-bar-bg">
-          <div class="tema-bar-fill fill-pos" style="width:${Math.round((n / posMax) * 100)}%"></div>
-        </div>
-      </div>`).join("");
-
-  // Distribuição notas
-  const totalDist = Object.values(d.dist_notas).reduce((a, b) => a + b, 0);
-  document.getElementById("dist-notas").innerHTML = [5, 4, 3, 2, 1].map(n => {
-    const v = d.dist_notas[String(n)] || 0;
-    const p = pct(v, totalDist);
-    return `
-      <div class="nota-row">
-        <span class="nota-star">${n}★</span>
-        <div class="nota-bar-bg"><div class="nota-bar-fill" style="width:${p}%"></div></div>
-        <span class="nota-pct">${p}%</span>
-      </div>`;
-  }).join("");
-
-  // Sentimento
-  const total = d.total;
-  const sents = [
-    { label: "Positivo", key: "positivo", color: "var(--green)" },
-    { label: "Neutro",   key: "neutro",   color: "#f4a261" },
-    { label: "Negativo", key: "negativo",  color: "var(--red)" },
-  ];
-  document.getElementById("sentimento").innerHTML = sents.map(s => {
-    const v = d.sentimentos?.[s.key] || 0;
-    const p = pct(v, total);
-    return `
-      <div class="sent-row">
-        <span class="sent-label">${s.label}</span>
-        <div class="sent-bar-bg">
-          <div class="sent-bar-fill" style="width:${p}%;background:${s.color}"></div>
-        </div>
-        <span class="sent-pct">${p}%</span>
-      </div>`;
-  }).join("");
-
-  // Top reviews
-  document.getElementById("top-reviews").innerHTML = (d.top_reviews || []).map(r => reviewCard(r)).join("");
-
-  // Recentes negativas
-  document.getElementById("recentes-neg").innerHTML = (d.recentes_neg || []).length
-    ? d.recentes_neg.map(r => reviewCard(r)).join("")
-    : `<p style="color:var(--ink3);font-size:13px;font-family:var(--mono)">Nenhuma crítica recente encontrada.</p>`;
-}
-
-function reviewCard(r) {
-  const isHigh = r.score >= 4;
-  return `
-    <div class="review-card">
-      <div class="review-top">
-        <span class="review-stars">${starStr(r.score, 12)}</span>
-        ${r.usuario ? `<span class="review-user">${r.usuario}</span>` : ""}
-        <span class="review-date">${r.data || ""}</span>
-        ${r.curtidas ? `<span class="review-likes">👍 ${r.curtidas}</span>` : ""}
+      <div class="dtabs">
+        <button class="dtab active" onclick="switchTab(this,'tp-m-${i}','det-${i}')">Métricas</button>
+        <button class="dtab" onclick="switchTab(this,'tp-t-${i}','det-${i}')">Temas</button>
+        <button class="dtab" onclick="switchTab(this,'tp-r-${i}','det-${i}')">Reviews</button>
+        <button class="dtab" onclick="switchTab(this,'tp-mo-${i}','det-${i}')">Monetização</button>
       </div>
-      <div class="review-text">${r.texto || ""}</div>
-    </div>`;
+
+      <div class="tpanel active" id="tp-m-${i}">
+        <div class="mstrip">
+          <div class="metric m-t"><div class="mlabel">Reviews</div><div class="mval">${d.total}</div><div class="msub">coletadas</div></div>
+          <div class="metric m-s"><div class="mlabel">Nota média</div><div class="mval">${d.media}</div><div class="msub">${starStr(d.media,11)}</div></div>
+          <div class="metric m-p"><div class="mlabel">Positivas</div><div class="mval" style="color:var(--green)">${pct(pos,d.total)}%</div><div class="msub">${pos} reviews</div></div>
+          <div class="metric m-n"><div class="mlabel">Negativas</div><div class="mval" style="color:var(--red)">${pct(neg,d.total)}%</div><div class="msub">${neg} reviews</div></div>
+        </div>
+        <div class="p2">
+          <div class="panel"><div class="ptitle">Notas</div>${[5,4,3,2,1].map(n=>{const v=d.dist_notas[String(n)]||0;const p=pct(v,td);return`<div class="nota-row"><span class="nota-star">${n}★</span><div class="nbar-bg"><div class="nbar-fill" style="width:${p}%"></div></div><span class="nota-pct">${p}%</span></div>`;}).join('')}</div>
+          <div class="panel"><div class="ptitle">Sentimento</div>${[{l:'Positivo',k:'positivo',c:'var(--green)'},{l:'Neutro',k:'neutro',c:'var(--amber)'},{l:'Negativo',k:'negativo',c:'var(--red)'}].map(s=>{const v=d.sentimentos?.[s.k]||0;const p=pct(v,d.total);return`<div class="sent-row"><span class="sent-label">${s.l}</span><div class="sbar-bg"><div class="sbar-fill" style="width:${p}%;background:${s.c}"></div></div><span class="sent-pct">${p}%</span></div>`;}).join('')}</div>
+        </div>
+      </div>
+
+      <div class="tpanel" id="tp-t-${i}">
+        <div class="p2">
+          <div class="panel"><div class="ptitle">Mais reclamados</div>${Object.entries(d.temas_neg||{}).map(([t,n])=>`<div class="tema-row"><div class="tema-label"><span class="tema-name">${t}</span><span class="tema-count">${n}</span></div><div class="tbar-bg"><div class="tbar-fill fill-r" style="width:${Math.round((n/negMax)*100)}%"></div></div></div>`).join('')||'<div class="no-data">Sem dados</div>'}</div>
+          <div class="panel"><div class="ptitle">Mais elogiados</div>${Object.entries(d.temas_pos||{}).map(([t,n])=>`<div class="tema-row"><div class="tema-label"><span class="tema-name">${t}</span><span class="tema-count">${n}</span></div><div class="tbar-bg"><div class="tbar-fill fill-g" style="width:${Math.round((n/posMax)*100)}%"></div></div></div>`).join('')||'<div class="no-data">Sem dados</div>'}</div>
+        </div>
+      </div>
+
+      <div class="tpanel" id="tp-r-${i}">
+        <div class="panel full" style="margin-bottom:10px"><div class="ptitle">Reviews mais curtidas</div>${(d.top_reviews||[]).map(r=>rCard(r)).join('')||'<div class="no-data">Sem dados</div>'}</div>
+        <div class="panel full"><div class="ptitle">Críticas recentes (1–2 estrelas)</div>${(d.recentes_neg||[]).length?d.recentes_neg.map(r=>rCard(r)).join(''):'<div class="no-data">Nenhuma crítica recente.</div>'}</div>
+      </div>
+
+      <div class="tpanel" id="tp-mo-${i}">${moneyH}</div>
+    `;
+    ct.appendChild(sec);
+  });
 }
 
-function novaAnalise() {
-  document.getElementById("results").style.display = "none";
-  document.getElementById("url-input").value = "";
-  document.getElementById("hero").scrollIntoView({ behavior: "smooth" });
+function switchTab(btn,panelId,secId){
+  const sec=document.getElementById(secId);
+  sec.querySelectorAll('.dtab').forEach(t=>t.classList.remove('active'));
+  sec.querySelectorAll('.tpanel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
 }
 
-// Enter para analisar
-document.getElementById("url-input").addEventListener("keydown", e => {
-  if (e.key === "Enter") analisar();
-});
+/* ── CSV ── */
+function exportarCSV(){
+  const ok=appData.filter(d=>!d.error);
+  if(!ok.length) return;
+
+  const rows=[];
+  rows.push(['App','Desenvolvedor','Categoria','Instalações','Nota Geral','Nota Média','Total Reviews','% Positivas','% Neutras','% Negativas','Preço','In-App','Modelo','Receita Est.','Tema Neg #1','Qtd','Tema Neg #2','Qtd','Tema Pos #1','Qtd','Tema Pos #2','Qtd','5★%','4★%','3★%','2★%','1★%','URL']);
+
+  ok.forEach(d=>{
+    const pp=pct(d.sentimentos?.positivo||0,d.total);
+    const pn=pct(d.sentimentos?.neutro||0,d.total);
+    const pne=pct(d.sentimentos?.negativo||0,d.total);
+    const ne=Object.entries(d.temas_neg||{});
+    const po=Object.entries(d.temas_pos||{});
+    const td=Object.values(d.dist_notas||{}).reduce((a,b)=>a+b,0);
+    const rd=d.receita_detalhes||{};
+    rows.push([d.nome,d.developer,d.categoria,d.instalacoes,d.score_geral,d.media,d.total,pp+'%',pn+'%',pne+'%',d.preco_app,d.in_app||'',rd.modelo||'',rd.receita_mensal_est||'',ne[0]?.[0]||'',ne[0]?.[1]||'',ne[1]?.[0]||'',ne[1]?.[1]||'',po[0]?.[0]||'',po[0]?.[1]||'',po[1]?.[0]||'',po[1]?.[1]||'',pct(d.dist_notas?.['5']||0,td)+'%',pct(d.dist_notas?.['4']||0,td)+'%',pct(d.dist_notas?.['3']||0,td)+'%',pct(d.dist_notas?.['2']||0,td)+'%',pct(d.dist_notas?.['1']||0,td)+'%',d.url]);
+    rows.push([]);
+    rows.push([`=== REVIEWS: ${d.nome} ===`]);
+    rows.push(['Usuário','Data','Nota','Curtidas','Texto']);
+    const all=[...(d.top_reviews||[]),...(d.recentes_neg||[])];
+    const seen=new Set();
+    all.forEach(r=>{
+      const k=(r.usuario||'')+(r.data||'')+(r.texto||'').substring(0,15);
+      if(seen.has(k)) return; seen.add(k);
+      rows.push([r.usuario||'',r.data||'',r.score,r.curtidas||0,(r.texto||'').replace(/"/g,"'")]);
+    });
+    rows.push([]);
+  });
+
+  const csv=rows.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`review-lens-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+/* ── Helpers ── */
+function pct(a,t){return t>0?Math.round((a/t)*100):0;}
+function starStr(n,sz=11){const f=Math.round(n),e=5-f;return`<span style="color:var(--amber);font-size:${sz}px">${'★'.repeat(f)}</span><span style="color:var(--border2);font-size:${sz}px">${'☆'.repeat(e)}</span>`;}
+function rCard(r){return`<div class="rcard"><div class="rtop"><span>${starStr(r.score,11)}</span>${r.usuario?`<span class="ruser">${r.usuario}</span>`:''}<span class="rdate">${r.data||''}</span>${r.curtidas?`<span class="rlikes">👍 ${r.curtidas}</span>`:''}</div><div class="rtext">${r.texto||''}</div></div>`;}
+function showError(msg){const e=document.getElementById('error-banner');e.textContent=msg;e.style.display='block';}
+function limpar(){appData=[];slots=[];PRESETS.forEach(u=>slots.push({url:u,status:'idle'}));renderSlots();document.getElementById('results').style.display='none';document.getElementById('error-banner').style.display='none';document.getElementById('btn-csv').disabled=true;if(chartInst){chartInst.destroy();chartInst=null;}}
 </script>
 </body>
 </html>

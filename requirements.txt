@@ -1,0 +1,4 @@
+flask
+flask-cors
+google-play-scraper
+gunicorn
