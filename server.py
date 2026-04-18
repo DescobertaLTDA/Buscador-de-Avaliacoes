@@ -70,6 +70,8 @@ def analisar():
     data = request.json or {}
     url  = data.get("url", "").strip()
     qtd  = min(int(data.get("quantidade", 300)), 500)
+    filtro_sentimento = (data.get("sentimento") or "todos").strip().lower()
+    filtro_estrela = str(data.get("estrela") or "todas").strip().lower()
 
     app_id = extrair_id(url)
     if not app_id:
@@ -144,6 +146,19 @@ def analisar():
 
     if not result:
         return jsonify({"erro": "Nenhuma review encontrada para este app."}), 404
+
+    if filtro_estrela != "todas":
+        try:
+            estrela = int(filtro_estrela)
+            result = [r for r in result if int(r.get("score", 0)) == estrela]
+        except ValueError:
+            return jsonify({"erro": "Filtro de estrelas inválido."}), 400
+
+    if filtro_sentimento != "todos":
+        result = [r for r in result if sentimento(int(r.get("score", 0))) == filtro_sentimento]
+
+    if not result:
+        return jsonify({"erro": "Nenhuma review encontrada com os filtros selecionados."}), 404
 
     # ── Análise ──
     total       = len(result)
