@@ -208,6 +208,86 @@ body{background:var(--bg);color:var(--ink);font-family:var(--outfit);min-height:
 .fade-in{animation:fadeUp .4s ease both}
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* Light landing refresh */
+:root{
+  --bg:#fbfcfb;--bg2:#f5faf7;--bg3:#eef6f1;--card:#ffffff;
+  --border:rgba(20,32,26,0.08);--border2:rgba(20,32,26,0.16);
+  --ink:#14201a;--ink2:#53645b;--ink3:#87968e;
+  --green:#0f766e;--green-bg:#ddfaec;
+  --red:#dc2626;--red-bg:#fff1f2;
+  --amber:#d97706;--amber-bg:#fff7ed;
+  --blue:#2563eb;--blue-bg:#eff6ff;
+}
+body{background:var(--bg);color:var(--ink)}
+.nav{height:68px;padding:0 40px;background:rgba(251,252,251,.92);border-bottom:1px solid #dce7e1}
+.nav-logo{font-size:18px;font-weight:700;letter-spacing:0;color:var(--ink)}
+.nav-logo-icon{background:var(--ink)}
+.nav-right{gap:18px}.pulse{background:var(--green)}
+.nav-pill{border-color:#dce7e1;color:var(--ink2);background:#fff}
+.hero{max-width:none;min-height:690px;padding:74px 40px 76px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(251,252,251,.97) 0%,rgba(251,252,251,.92) 45%,rgba(251,252,251,.64) 100%),url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1800&q=80") center/cover;z-index:-2}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(180deg,rgba(251,252,251,0),var(--bg));z-index:-1}
+.hero > *{max-width:1240px;margin-left:auto;margin-right:auto}
+.hero-eyebrow{font-size:12px;color:var(--green);letter-spacing:.12em;margin-bottom:18px}
+.hero h1{font-size:64px;line-height:1.04;font-weight:600;max-width:760px;margin:0 auto 20px 0;color:var(--ink)}
+.hero h1 strong{color:var(--green);font-weight:600}
+.hero-sub{font-size:20px;line-height:1.55;max-width:660px;color:var(--ink2);margin:0 auto 30px 0}
+.input-section{max-width:980px;margin:32px auto 0 0;background:rgba(255,255,255,.9);border:1px solid #dce7e1;border-radius:16px;padding:18px;box-shadow:0 24px 70px rgba(20,32,26,.10)}
+.input-header{margin-bottom:12px}
+.section-title{font-size:16px;font-weight:700;color:var(--ink)}
+.section-hint{font-size:12px;color:var(--ink3)}
+.app-slot{background:#fff;border:1px solid #bfd2c8;border-radius:8px;padding:17px 18px}
+.app-slot:focus-within{border-color:#2ecf89;box-shadow:0 0 0 4px #ddfaec}
+.app-slot.err{border-color:rgba(220,38,38,.45);background:#fffafa}
+.slot-input{color:var(--ink);font-size:14px}
+.btn-primary{background:var(--ink);color:#fff;font-weight:700;padding:13px 22px}
+.btn-primary:hover{background:#20342a}
+.btn-sec{background:#fff;color:var(--ink2);border:1px solid #bfd2c8;padding:13px 18px}
+.btn-sec:hover{border-color:var(--green);color:var(--ink)}
+.progress-fill{background:#2ecf89}
+.error-banner{background:var(--red-bg);border-color:rgba(220,38,38,.24);color:var(--red)}
+.landing-section{max-width:1240px;margin:0 auto;padding:76px 40px}
+.landing-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+.landing-section h2{font-size:42px;line-height:1.14;font-weight:600;max-width:760px;margin-bottom:16px}
+.landing-lead{font-size:18px;line-height:1.6;color:var(--ink2);max-width:760px}
+.landing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.landing-card{background:#fff;border:1px solid #dce7e1;border-radius:12px;padding:24px;box-shadow:0 10px 34px rgba(20,32,26,.05)}
+.landing-card img{width:100%;height:150px;object-fit:cover;border-radius:8px;margin-bottom:18px;border:1px solid #dce7e1}
+.landing-card h3{font-size:20px;margin-bottom:9px;color:var(--ink)}
+.landing-card p{color:var(--ink2);line-height:1.55}
+.solution-section{background:#10251d;color:#fff;max-width:none}
+.solution-section .landing-inner{max-width:1240px;margin:0 auto}
+.solution-section .landing-kicker{color:#2ecf89}
+.solution-section h2{color:#fff}
+.solution-section .landing-lead,.solution-section .landing-card p{color:#cfe1d8}
+.solution-section .landing-card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);box-shadow:none}
+.solution-section .landing-card h3{color:#fff}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
+.step{background:#fff;border:1px solid #dce7e1;border-radius:12px;padding:22px}
+.step-num{width:34px;height:34px;border-radius:8px;background:#ddfaec;color:var(--green);display:grid;place-items:center;font-weight:700;margin-bottom:16px}
+.step h3{font-size:18px;margin-bottom:8px}
+.step p{color:var(--ink2);line-height:1.55}
+.quote-section{background:var(--bg3);border-top:1px solid #dce7e1;border-bottom:1px solid #dce7e1;text-align:center}
+.quote-section p:first-child{font-size:30px;line-height:1.35;color:var(--ink);max-width:900px;margin:0 auto}
+.quote-section p:last-child{color:var(--ink2);margin-top:18px}
+.final-cta{background:linear-gradient(135deg,#10251d,#0f766e);color:#fff;text-align:center;max-width:none}
+.final-cta .landing-inner{max-width:900px;margin:0 auto}.final-cta h2{color:#fff;margin-left:auto;margin-right:auto}.final-cta .landing-lead{color:#d9f4e7;margin-left:auto;margin-right:auto}
+#results{max-width:1240px;padding:42px 40px 80px}
+#results > div{max-width:none!important;padding:0!important}
+.chart-card,.detail-card,.app-card{background:#fff;border:1px solid #dce7e1;box-shadow:0 12px 40px rgba(20,32,26,.05)}
+.chart-head-title,.detail-name,.compare-bar-title{color:var(--ink);font-weight:700}
+.metric,.panel{background:var(--bg3);border:1px solid #dce7e1}
+.rcard,.mcard{background:#fff;border:1px solid #dce7e1}
+@media(max-width:900px){
+  .nav{padding:0 20px}.nav-right{display:none}
+  .hero{padding:54px 20px 64px;min-height:auto}
+  .hero h1{font-size:42px}
+  .hero-sub{font-size:18px}
+  .landing-section{padding:56px 20px}
+  .landing-grid,.steps{grid-template-columns:1fr}
+  #results{padding:34px 20px 64px}
+}
 </style>
 </head>
 <body>
@@ -221,13 +301,15 @@ body{background:var(--bg);color:var(--ink);font-family:var(--outfit);min-height:
     PAGGIO
   </div>
   <div class="nav-right">
-    <span class="pulse"></span>
-    <span class="nav-pill">BUSCADOR DE AVALIACOES</span>
+    <a href="#problema">Problema</a>
+    <a href="#solucao">Solução</a>
+    <a href="#como-funciona">Como funciona</a>
+    <a class="nav-pill" href="#top">Analisar app</a>
   </div>
 </nav>
 
 <!-- HERO + INPUT -->
-<div class="hero">
+<div class="hero" id="top">
   <div class="hero-eyebrow">inteligencia competitiva · google play store</div>
   <h1>Descubra o que clientes<br><strong>dizem antes de construir</strong></h1>
   <p class="hero-sub">Paggio transforma avaliacoes da Google Play em sinais de produto: dores, elogios, notas, temas recorrentes e oportunidades de mercado.</p>
@@ -245,7 +327,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--outfit);min-height:
     <div class="action-bar">
       <button class="btn-primary" id="btn-analisar" onclick="analisarTodos()">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="1.4"/><path d="M7 4.2v2.8l1.8 1.8" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
-        Analisar apps
+        Analisar app
       </button>
       <button class="btn-sec" id="btn-csv" onclick="exportarCSV()" disabled>
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 5h6M4 7.5h6M4 10h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
@@ -262,6 +344,76 @@ body{background:var(--bg);color:var(--ink);font-family:var(--outfit);min-height:
     <div class="error-banner" id="error-banner"></div>
   </div>
 </div>
+
+<section class="landing-section" id="problema">
+  <div class="landing-kicker">O problema</div>
+  <h2>Feedback público existe, mas fica espalhado demais para virar decisão.</h2>
+  <p class="landing-lead">Times pequenos perdem horas lendo avaliações, copiando comentários e tentando separar opinião isolada de padrão real.</p>
+  <div class="landing-grid">
+    <article class="landing-card">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Pessoa analisando dados em notebook">
+      <h3>Reviews viram ruído</h3>
+      <p>Centenas de comentários contam uma história, mas ler um por um atrasa a tomada de decisão.</p>
+    </article>
+    <article class="landing-card">
+      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80" alt="Equipe discutindo decisões de produto">
+      <h3>Prioridades ficam no achismo</h3>
+      <p>Sem agrupamento por temas, fica difícil saber se o problema principal é bug, preço, UX ou suporte.</p>
+    </article>
+    <article class="landing-card">
+      <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=80" alt="Dashboard aberto em ambiente de trabalho">
+      <h3>Concorrentes ensinam pouco</h3>
+      <p>A loja mostra notas e comentários, mas não entrega uma leitura pronta para estratégia.</p>
+    </article>
+  </div>
+</section>
+
+<section class="landing-section solution-section" id="solucao">
+  <div class="landing-inner">
+    <div class="landing-kicker">A solução</div>
+    <h2>Paggio resume a voz do mercado em uma análise simples de ler.</h2>
+    <p class="landing-lead">Você cola o link do app. O Paggio busca avaliações, calcula sentimento, mostra temas recorrentes, separa críticas recentes e organiza tudo em cards, gráficos e CSV.</p>
+    <div class="landing-grid">
+      <article class="landing-card"><h3>Sentimento por nota</h3><p>Veja rapidamente a proporção de avaliações positivas, neutras e negativas.</p></article>
+      <article class="landing-card"><h3>Temas recorrentes</h3><p>Identifique reclamações e elogios ligados a bugs, preço, UX, integrações e outros sinais.</p></article>
+      <article class="landing-card"><h3>Reviews acionáveis</h3><p>Leia os comentários mais úteis e as críticas recentes sem navegar pela loja inteira.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="landing-section" id="como-funciona">
+  <div class="landing-kicker">Como funciona</div>
+  <h2>Da URL ao diagnóstico em poucos passos.</h2>
+  <div class="steps">
+    <article class="step"><div class="step-num">1</div><h3>Cole o link</h3><p>Use a URL pública do app na Google Play.</p></article>
+    <article class="step"><div class="step-num">2</div><h3>Busque reviews</h3><p>O backend coleta as avaliações mais recentes disponíveis.</p></article>
+    <article class="step"><div class="step-num">3</div><h3>Leia padrões</h3><p>Notas, sentimento, temas e comentários aparecem organizados.</p></article>
+    <article class="step"><div class="step-num">4</div><h3>Exporte</h3><p>Baixe CSV para compartilhar, filtrar ou guardar a análise.</p></article>
+  </div>
+</section>
+
+<section class="landing-section quote-section">
+  <p>Antes de criar uma feature, descubra se o mercado já está pedindo, reclamando ou pagando por ela.</p>
+  <p>Paggio ajuda criadores, times de produto, gestores de tráfego e founders a enxergar oportunidades em apps reais.</p>
+</section>
+
+<section class="landing-section">
+  <div class="landing-kicker">Para quem é</div>
+  <h2>Use Paggio para validar ideias, estudar concorrentes e encontrar lacunas.</h2>
+  <div class="landing-grid">
+    <article class="landing-card"><h3>Novos produtos</h3><p>Descubra dores antes de investir tempo em desenvolvimento.</p></article>
+    <article class="landing-card"><h3>Análise de nicho</h3><p>Compare apps de uma categoria e encontre temas repetidos.</p></article>
+    <article class="landing-card"><h3>Copy e ofertas</h3><p>Use a linguagem real dos usuários para melhorar páginas, anúncios e propostas.</p></article>
+  </div>
+</section>
+
+<section class="landing-section final-cta">
+  <div class="landing-inner">
+    <div class="landing-kicker">Comece pelo link</div>
+    <h2>Escolha um app da Google Play e veja o que os clientes estão dizendo.</h2>
+    <p class="landing-lead">A barra de análise está no topo da página. Cole uma URL e gere seu primeiro diagnóstico.</p>
+  </div>
+</section>
 
 <!-- RESULTS -->
 <div id="results">
