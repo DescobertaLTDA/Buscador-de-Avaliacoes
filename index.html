@@ -353,7 +353,8 @@ async function analisarTodos() {
     setProg(Math.round((done/activeSlots.length)*100), `Analisando ${done+1} de ${activeSlots.length}...`);
     try {
       const res = await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url,quantidade:qty})});
-      const data = await res.json();
+      const ct = res.headers.get('content-type') || '';
+      const data = ct.includes('application/json') ? await res.json() : {erro:`A rota ${API} retornou ${res.status}. Verifique o deploy do backend.`};
       if(!res.ok||data.erro){slots[i].status='error';appData.push({error:data.erro||'Erro ao analisar este app',url,colorIdx:i});}
       else{slots[i].status='done';appData.push({...data,url,colorIdx:i});}
     } catch(e) {slots[i].status='error';appData.push({error:'A API nao respondeu. Verifique se o backend foi publicado junto com o site.',url,colorIdx:i});}
