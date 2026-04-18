@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paggio - Buscador de Avaliações</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
@@ -15,7 +15,7 @@
   --red:#f87171;--red-bg:rgba(248,113,113,0.1);
   --amber:#facc15;--amber-bg:rgba(250,204,21,0.1);
   --blue:#3ecf8e;--blue-bg:rgba(62,207,142,0.1);
-  --outfit:'Outfit',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --outfit:'Inter',sans-serif;--display:'Space Grotesk',sans-serif;--mono:'IBM Plex Mono',monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -221,16 +221,17 @@ body{background:var(--bg);color:var(--ink);font-family:var(--outfit);min-height:
 }
 body{background:var(--bg);color:var(--ink)}
 .nav{height:68px;padding:0 40px;background:rgba(251,252,251,.92);border-bottom:1px solid #dce7e1}
-.nav-logo{font-size:18px;font-weight:700;letter-spacing:0;color:var(--ink)}
+.nav-logo{font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:0;color:var(--ink)}
 .nav-logo-icon{background:var(--ink)}
 .nav-right{gap:18px}.pulse{background:var(--green)}
 .nav-pill{border-color:#dce7e1;color:var(--ink2);background:#fff}
 .hero{max-width:none;min-height:690px;padding:74px 40px 76px;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(251,252,251,.97) 0%,rgba(251,252,251,.92) 45%,rgba(251,252,251,.64) 100%),url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1800&q=80") center/cover;z-index:-2}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(255,255,255,0));z-index:-2}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(180deg,rgba(251,252,251,0),var(--bg));z-index:-1}
 .hero > *{max-width:1240px;margin-left:auto;margin-right:auto}
 .hero-eyebrow{font-size:12px;color:var(--green);letter-spacing:.12em;margin-bottom:18px}
 .hero h1{font-size:64px;line-height:1.04;font-weight:600;max-width:760px;margin:0 auto 20px 0;color:var(--ink)}
+.hero h1{font-family:var(--display)}
 .hero h1 strong{color:var(--green);font-weight:600}
 .hero-sub{font-size:20px;line-height:1.55;max-width:660px;color:var(--ink2);margin:0 auto 30px 0}
 .input-section{max-width:980px;margin:32px auto 0 0;background:rgba(255,255,255,.9);border:1px solid #dce7e1;border-radius:16px;padding:18px;box-shadow:0 24px 70px rgba(20,32,26,.10)}
@@ -247,32 +248,6 @@ body{background:var(--bg);color:var(--ink)}
 .btn-sec:hover{border-color:var(--green);color:var(--ink)}
 .progress-fill{background:#2ecf89}
 .error-banner{background:var(--red-bg);border-color:rgba(220,38,38,.24);color:var(--red)}
-.landing-section{max-width:1240px;margin:0 auto;padding:76px 40px}
-.landing-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
-.landing-section h2{font-size:42px;line-height:1.14;font-weight:600;max-width:760px;margin-bottom:16px}
-.landing-lead{font-size:18px;line-height:1.6;color:var(--ink2);max-width:760px}
-.landing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
-.landing-card{background:#fff;border:1px solid #dce7e1;border-radius:12px;padding:24px;box-shadow:0 10px 34px rgba(20,32,26,.05)}
-.landing-card img{width:100%;height:150px;object-fit:cover;border-radius:8px;margin-bottom:18px;border:1px solid #dce7e1}
-.landing-card h3{font-size:20px;margin-bottom:9px;color:var(--ink)}
-.landing-card p{color:var(--ink2);line-height:1.55}
-.solution-section{background:#10251d;color:#fff;max-width:none}
-.solution-section .landing-inner{max-width:1240px;margin:0 auto}
-.solution-section .landing-kicker{color:#2ecf89}
-.solution-section h2{color:#fff}
-.solution-section .landing-lead,.solution-section .landing-card p{color:#cfe1d8}
-.solution-section .landing-card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);box-shadow:none}
-.solution-section .landing-card h3{color:#fff}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
-.step{background:#fff;border:1px solid #dce7e1;border-radius:12px;padding:22px}
-.step-num{width:34px;height:34px;border-radius:8px;background:#ddfaec;color:var(--green);display:grid;place-items:center;font-weight:700;margin-bottom:16px}
-.step h3{font-size:18px;margin-bottom:8px}
-.step p{color:var(--ink2);line-height:1.55}
-.quote-section{background:var(--bg3);border-top:1px solid #dce7e1;border-bottom:1px solid #dce7e1;text-align:center}
-.quote-section p:first-child{font-size:30px;line-height:1.35;color:var(--ink);max-width:900px;margin:0 auto}
-.quote-section p:last-child{color:var(--ink2);margin-top:18px}
-.final-cta{background:linear-gradient(135deg,#10251d,#0f766e);color:#fff;text-align:center;max-width:none}
-.final-cta .landing-inner{max-width:900px;margin:0 auto}.final-cta h2{color:#fff;margin-left:auto;margin-right:auto}.final-cta .landing-lead{color:#d9f4e7;margin-left:auto;margin-right:auto}
 #results{max-width:1240px;padding:42px 40px 80px}
 #results > div{max-width:none!important;padding:0!important}
 .chart-card,.detail-card,.app-card{background:#fff;border:1px solid #dce7e1;box-shadow:0 12px 40px rgba(20,32,26,.05)}
@@ -284,10 +259,44 @@ body{background:var(--bg);color:var(--ink)}
   .hero{padding:54px 20px 64px;min-height:auto}
   .hero h1{font-size:42px}
   .hero-sub{font-size:18px}
-  .landing-section{padding:56px 20px}
-  .landing-grid,.steps{grid-template-columns:1fr}
   #results{padding:34px 20px 64px}
 }
+
+/* Purple sales theme */
+:root{
+  --bg:#f7f4ff;--bg2:#fbfaff;--bg3:#efe8ff;--card:#ffffff;
+  --border:rgba(68,42,118,0.10);--border2:rgba(68,42,118,0.18);
+  --ink:#211735;--ink2:#655a78;--ink3:#9b91ad;
+  --green:#7c3aed;--green-bg:#f0e7ff;
+  --red:#dc2626;--red-bg:#fff1f2;
+  --amber:#d97706;--amber-bg:#fff7ed;
+  --blue:#6d28d9;--blue-bg:#f0e7ff;
+}
+body{background:var(--bg)}
+.nav{background:rgba(247,244,255,.92);border-bottom-color:#e4dcf7}
+.nav-logo-icon{background:linear-gradient(135deg,#7c3aed,#4c1d95)}
+.nav-pill{border-color:#ded3f4;color:#4c1d95;background:#fff}
+.hero{background:
+  radial-gradient(circle at 90% 20%,rgba(124,58,237,.16),transparent 32%),
+  linear-gradient(180deg,#fbfaff 0%,#f7f4ff 100%);
+}
+.hero{min-height:auto;padding-bottom:86px}
+.hero::before{display:none}
+.hero::after{background:linear-gradient(180deg,rgba(247,244,255,0),var(--bg))}
+.hero-eyebrow,.hero h1 strong{color:#6d28d9}
+.input-section{background:rgba(255,255,255,.92);border-color:#ded3f4;box-shadow:0 24px 70px rgba(68,42,118,.12)}
+.app-slot{border-color:#d8c9f2}
+.app-slot:focus-within{border-color:#8b5cf6;box-shadow:0 0 0 4px #ede9fe}
+.btn-primary{background:#6d28d9;color:#fff}
+.btn-primary:hover{background:#5b21b6}
+.btn-sec{border-color:#d8c9f2}
+.btn-sec:hover{border-color:#7c3aed;color:#4c1d95}
+.progress-fill{background:#7c3aed}
+.chart-card,.detail-card,.app-card,.rcard,.mcard{border-color:#e4dcf7}
+.ctab.active{background:#f0e7ff;color:#6d28d9;border-color:#c8b6ef}
+.dtab.active{color:#6d28d9;border-bottom-color:#6d28d9}
+.mini-g,.b-g,.mb-f{color:#6d28d9;border-color:#d8c9f2;background:#f0e7ff}
+.fill-g,.m-t::after,.m-p::after{background:#7c3aed}
 </style>
 </head>
 <body>
@@ -301,9 +310,6 @@ body{background:var(--bg);color:var(--ink)}
     PAGGIO
   </div>
   <div class="nav-right">
-    <a href="#problema">Problema</a>
-    <a href="#solucao">Solução</a>
-    <a href="#como-funciona">Como funciona</a>
     <a class="nav-pill" href="#top">Analisar app</a>
   </div>
 </nav>
@@ -344,76 +350,6 @@ body{background:var(--bg);color:var(--ink)}
     <div class="error-banner" id="error-banner"></div>
   </div>
 </div>
-
-<section class="landing-section" id="problema">
-  <div class="landing-kicker">O problema</div>
-  <h2>Feedback público existe, mas fica espalhado demais para virar decisão.</h2>
-  <p class="landing-lead">Times pequenos perdem horas lendo avaliações, copiando comentários e tentando separar opinião isolada de padrão real.</p>
-  <div class="landing-grid">
-    <article class="landing-card">
-      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Pessoa analisando dados em notebook">
-      <h3>Reviews viram ruído</h3>
-      <p>Centenas de comentários contam uma história, mas ler um por um atrasa a tomada de decisão.</p>
-    </article>
-    <article class="landing-card">
-      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80" alt="Equipe discutindo decisões de produto">
-      <h3>Prioridades ficam no achismo</h3>
-      <p>Sem agrupamento por temas, fica difícil saber se o problema principal é bug, preço, UX ou suporte.</p>
-    </article>
-    <article class="landing-card">
-      <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=80" alt="Dashboard aberto em ambiente de trabalho">
-      <h3>Concorrentes ensinam pouco</h3>
-      <p>A loja mostra notas e comentários, mas não entrega uma leitura pronta para estratégia.</p>
-    </article>
-  </div>
-</section>
-
-<section class="landing-section solution-section" id="solucao">
-  <div class="landing-inner">
-    <div class="landing-kicker">A solução</div>
-    <h2>Paggio resume a voz do mercado em uma análise simples de ler.</h2>
-    <p class="landing-lead">Você cola o link do app. O Paggio busca avaliações, calcula sentimento, mostra temas recorrentes, separa críticas recentes e organiza tudo em cards, gráficos e CSV.</p>
-    <div class="landing-grid">
-      <article class="landing-card"><h3>Sentimento por nota</h3><p>Veja rapidamente a proporção de avaliações positivas, neutras e negativas.</p></article>
-      <article class="landing-card"><h3>Temas recorrentes</h3><p>Identifique reclamações e elogios ligados a bugs, preço, UX, integrações e outros sinais.</p></article>
-      <article class="landing-card"><h3>Reviews acionáveis</h3><p>Leia os comentários mais úteis e as críticas recentes sem navegar pela loja inteira.</p></article>
-    </div>
-  </div>
-</section>
-
-<section class="landing-section" id="como-funciona">
-  <div class="landing-kicker">Como funciona</div>
-  <h2>Da URL ao diagnóstico em poucos passos.</h2>
-  <div class="steps">
-    <article class="step"><div class="step-num">1</div><h3>Cole o link</h3><p>Use a URL pública do app na Google Play.</p></article>
-    <article class="step"><div class="step-num">2</div><h3>Busque reviews</h3><p>O backend coleta as avaliações mais recentes disponíveis.</p></article>
-    <article class="step"><div class="step-num">3</div><h3>Leia padrões</h3><p>Notas, sentimento, temas e comentários aparecem organizados.</p></article>
-    <article class="step"><div class="step-num">4</div><h3>Exporte</h3><p>Baixe CSV para compartilhar, filtrar ou guardar a análise.</p></article>
-  </div>
-</section>
-
-<section class="landing-section quote-section">
-  <p>Antes de criar uma feature, descubra se o mercado já está pedindo, reclamando ou pagando por ela.</p>
-  <p>Paggio ajuda criadores, times de produto, gestores de tráfego e founders a enxergar oportunidades em apps reais.</p>
-</section>
-
-<section class="landing-section">
-  <div class="landing-kicker">Para quem é</div>
-  <h2>Use Paggio para validar ideias, estudar concorrentes e encontrar lacunas.</h2>
-  <div class="landing-grid">
-    <article class="landing-card"><h3>Novos produtos</h3><p>Descubra dores antes de investir tempo em desenvolvimento.</p></article>
-    <article class="landing-card"><h3>Análise de nicho</h3><p>Compare apps de uma categoria e encontre temas repetidos.</p></article>
-    <article class="landing-card"><h3>Copy e ofertas</h3><p>Use a linguagem real dos usuários para melhorar páginas, anúncios e propostas.</p></article>
-  </div>
-</section>
-
-<section class="landing-section final-cta">
-  <div class="landing-inner">
-    <div class="landing-kicker">Comece pelo link</div>
-    <h2>Escolha um app da Google Play e veja o que os clientes estão dizendo.</h2>
-    <p class="landing-lead">A barra de análise está no topo da página. Cole uma URL e gere seu primeiro diagnóstico.</p>
-  </div>
-</section>
 
 <!-- RESULTS -->
 <div id="results">
