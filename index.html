@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paggio - Buscador de Avaliações</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
@@ -15,7 +15,7 @@
   --red:#f87171;--red-bg:rgba(248,113,113,0.1);
   --amber:#facc15;--amber-bg:rgba(250,204,21,0.1);
   --blue:#3ecf8e;--blue-bg:rgba(62,207,142,0.1);
-  --outfit:'Inter',sans-serif;--display:'Space Grotesk',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --outfit:'Manrope',sans-serif;--display:'Sora',sans-serif;--mono:'IBM Plex Mono',monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -704,8 +704,8 @@ function renderDetails() {
       </div>
 
       <div class="tpanel" id="tp-r-${i}">
-        <div class="panel full" style="margin-bottom:10px"><div class="ptitle">Reviews mais curtidas</div>${(d.top_reviews||[]).map(r=>rCard(r)).join('')||'<div class="no-data">Sem dados</div>'}</div>
-        <div class="panel full"><div class="ptitle">Críticas recentes (1–2 estrelas)</div>${(d.recentes_neg||[]).length?d.recentes_neg.map(r=>rCard(r)).join(''):'<div class="no-data">Nenhuma crítica recente.</div>'}</div>
+        <div class="panel full" style="margin-bottom:10px"><div class="ptitle">Todas as reviews coletadas (${(d.all_reviews||[]).length || d.total})</div>${(d.all_reviews||[]).map(r=>rCard(r)).join('')||'<div class="no-data">Sem dados</div>'}</div>
+        <div class="panel full"><div class="ptitle">Reviews mais curtidas</div>${(d.top_reviews||[]).map(r=>rCard(r)).join('')||'<div class="no-data">Sem dados</div>'}</div>
       </div>
 
       <div class="tpanel" id="tp-mo-${i}">${moneyH}</div>
@@ -742,7 +742,7 @@ function exportarCSV(){
     rows.push([]);
     rows.push([`=== REVIEWS: ${d.nome} ===`]);
     rows.push(['Usuário','Data','Nota','Curtidas','Texto']);
-    const all=[...(d.top_reviews||[]),...(d.recentes_neg||[])];
+    const all=(d.all_reviews&&d.all_reviews.length)?d.all_reviews:[...(d.top_reviews||[]),...(d.recentes_neg||[])];
     const seen=new Set();
     all.forEach(r=>{
       const k=(r.usuario||'')+(r.data||'')+(r.texto||'').substring(0,15);

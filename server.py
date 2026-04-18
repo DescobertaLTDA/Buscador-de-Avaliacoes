@@ -176,6 +176,17 @@ def analisar():
             if r["score"] >= 4:
                 temas_pos[t] += 1
 
+    all_reviews_out = [
+        {
+            "score":    r["score"],
+            "texto":    (r.get("content") or "")[:600],
+            "curtidas": r.get("thumbsUpCount", 0),
+            "data":     r["at"].strftime("%d/%m/%Y") if r.get("at") else "",
+            "usuario":  r.get("userName", ""),
+        }
+        for r in result
+    ]
+
     # Top reviews por curtidas
     top_reviews = sorted(result, key=lambda x: x.get("thumbsUpCount", 0), reverse=True)[:8]
     top_reviews_out = [
@@ -219,6 +230,7 @@ def analisar():
         "dist_notas":       {str(k): v for k, v in dist_notas.items()},
         "temas_neg":        dict(temas_neg.most_common(8)),
         "temas_pos":        dict(temas_pos.most_common(8)),
+        "all_reviews":      all_reviews_out,
         "top_reviews":      top_reviews_out,
         "recentes_neg":     recentes_neg_out,
     })
